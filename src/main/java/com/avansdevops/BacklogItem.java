@@ -5,6 +5,7 @@ public class BacklogItem {
     private String description;
     private int storyPoints;
     private BacklogItem[] subActivities;
+    private User storyOwner;
 
     public BacklogItem(String title, String description, int storyPoints) {
         this.title = title;
