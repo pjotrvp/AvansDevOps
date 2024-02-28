@@ -17,6 +17,7 @@ public class ProjectTest {
         assertNotNull(project.getBacklog());
     }
 
+    //requirement 1
     @Test
     public void projectCanMakeSprint() {
         Project project = new Project("Project 1");
@@ -31,5 +32,12 @@ public class ProjectTest {
         Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIALPRODUCT, project.getBacklog());
         project.addSprint(sprint);
         assertNotNull(project.getSprints());
+    }
+
+    //requirement 1
+    @Test
+    public void CanAddSCMToProject() {
+        Project project = new Project("Project 1");
+        assertNotNull(project.getScm());
     }
 }

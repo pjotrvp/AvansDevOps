@@ -29,4 +29,12 @@ public class Project {
     {
         return this.sprints;
     }
+
+    public DiscussionForum getDiscussionForum() {
+        return this.discussionForum;
+    }
+
+    public Scm getScm() {
+        return new Scm();
+    }
 }
