@@ -1,5 +1,6 @@
 package com.avansdevops;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Project {
@@ -13,5 +14,19 @@ public class Project {
         this.name = name;
         this.backlog = new Backlog();
         this.discussionForum = new DiscussionForum();
+        this.sprints = new ArrayList<>();
+    }
+
+    public Backlog getBacklog() {
+        return this.backlog;
+    }
+
+    public void addSprint(Sprint newSprint) {
+        this.sprints.add(newSprint);
+    }
+
+    public List<Sprint> getSprints()
+    {
+        return this.sprints;
     }
 }
