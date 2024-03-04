@@ -6,9 +6,6 @@ import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.avansdevops.pipeline.BuildPipeline;
-import com.avansdevops.pipeline.PipelineTemplate;
-
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
