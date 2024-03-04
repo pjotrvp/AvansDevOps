@@ -18,6 +18,15 @@ public abstract class PipelineTemplate {
         return pipelineName;
     }
 
+    protected void log(String message) {
+        System.out.println(message);
+    }
+
+    protected void runCommand(String command) {
+        log("Running command: " + command);
+        // Simulate running the command
+    }
+
     public abstract Boolean setup();
 
     public abstract Boolean run();

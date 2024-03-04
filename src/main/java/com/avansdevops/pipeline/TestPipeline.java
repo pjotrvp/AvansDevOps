@@ -8,24 +8,17 @@ public class TestPipeline extends PipelineTemplate {
 
     @Override
     public Boolean setup() {
-        System.out.println("Initiating the " + this.getPipelineName() + " pipeline...");
-
-        // Simulate running mvn install
-        System.out.println("Running command: mvn install");
-
-        System.out.println("Dependencies installed successfully!");
+        log("Initiating the " + getPipelineName() + " pipeline...");
+        runCommand("mvn install");
+        log("Dependencies installed successfully!");
         return true;
     }
 
     @Override
     public Boolean run() {
-        // Simulate testing the project
-        System.out.println("Testing the project...");
-
-        // Simulate running npm test
-        System.out.println("Running command: mvn test");
-
-        System.out.println("Tests completed successfully!");
+        log("Testing the project...");
+        runCommand("mvn test");
+        log("Tests completed successfully!");
         return true;
     }
 }
