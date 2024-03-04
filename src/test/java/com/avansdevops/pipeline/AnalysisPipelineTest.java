@@ -40,7 +40,7 @@ public class AnalysisPipelineTest {
         // Verify that the methods were called in the correct order
         InOrder inOrder = Mockito.inOrder(analysisPipeline);
         inOrder.verify(analysisPipeline).setup();
-        // inOrder.verify(analysisPipeline).run();
+        inOrder.verify(analysisPipeline).run();
         inOrder.verify(analysisPipeline).teardown();
     }
 }
