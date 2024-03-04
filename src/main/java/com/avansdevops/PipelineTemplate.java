@@ -1,4 +1,4 @@
-package com.avansdevops.Pipelines;
+package com.avansdevops;
 
 public abstract class PipelineTemplate {
     private String pipelineName;

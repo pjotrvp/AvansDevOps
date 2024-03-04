@@ -1,6 +1,4 @@
-package com.avansdevops.BacklogItems;
-
-import com.avansdevops.BacklogItem;
+package com.avansdevops;
 
 public class ReadyForTestingState implements IBacklogItemState {
 
