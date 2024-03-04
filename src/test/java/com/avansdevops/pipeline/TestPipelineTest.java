@@ -1,4 +1,4 @@
-package com.avansdevops;
+package com.avansdevops.pipeline;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,8 +6,8 @@ import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.avansdevops.PipelineTemplate;
-import com.avansdevops.TestPipeline;
+import com.avansdevops.pipeline.PipelineTemplate;
+import com.avansdevops.pipeline.TestPipeline;
 
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package com.avansdevops;
+package com.avansdevops.pipeline;
 
 public class TestPipeline extends PipelineTemplate {
 

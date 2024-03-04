@@ -1,5 +1,8 @@
 package com.avansdevops;
 
+import com.avansdevops.backlog.IBacklogItemState;
+import com.avansdevops.backlog.TodoState;
+
 public class BacklogItem {
     private String title;
     private String description;

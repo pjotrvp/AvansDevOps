@@ -3,6 +3,8 @@ package com.avansdevops;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avansdevops.backlog.TodoState;
+
 public class Backlog {
     private List<BacklogItem> items;
     public Backlog() {

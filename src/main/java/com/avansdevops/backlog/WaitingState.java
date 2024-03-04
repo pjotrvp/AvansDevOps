@@ -1,4 +1,6 @@
-package com.avansdevops;
+package com.avansdevops.backlog;
+
+import com.avansdevops.BacklogItem;
 
 public class WaitingState implements IBacklogItemState{
 
