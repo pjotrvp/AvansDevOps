@@ -8,17 +8,12 @@ public class TestPipeline extends PipelineTemplate {
 
     @Override
     public Boolean setup() {
-        log("Initiating the " + getPipelineName() + " pipeline...");
-        runCommand("mvn install");
-        log("Dependencies installed successfully!");
-        return true;
+        return executeStep("Initiating the " + getPipelineName() + " pipeline...", "mvn install",
+                "Dependencies installed successfully!");
     }
 
     @Override
     public Boolean run() {
-        log("Testing the project...");
-        runCommand("mvn test");
-        log("Tests completed successfully!");
-        return true;
+        return executeStep("Testing the project...", "mvn test", "Tests completed successfully!");
     }
 }

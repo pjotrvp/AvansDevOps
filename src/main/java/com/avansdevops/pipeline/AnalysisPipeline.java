@@ -8,17 +8,12 @@ public class AnalysisPipeline extends PipelineTemplate {
 
     @Override
     public Boolean setup() {
-        log("Initiating the " + getPipelineName() + " pipeline...");
-        runCommand("surefire install");
-        log("Dependencies installed successfully!");
-        return true;
+        return executeStep("Initiating the " + getPipelineName() + " pipeline...", "surefire install",
+                "Dependencies installed successfully!");
     }
 
     @Override
     public Boolean run() {
-        log("Analyzing the project...");
-        runCommand("surefire analyse");
-        log("Analysis completed successfully!");
-        return true;
+        return executeStep("Analyzing the project...", "surefire analyse", "Analysis completed successfully!");
     }
 }
