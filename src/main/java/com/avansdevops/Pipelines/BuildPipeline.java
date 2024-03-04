@@ -13,12 +13,6 @@ public class BuildPipeline extends PipelineTemplate {
         // Simulate running npm install
         System.out.println("Running command: npm install");
 
-        // Simulate some delay
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         System.out.println("Dependencies installed successfully!");
         return true;
     }
@@ -31,12 +25,6 @@ public class BuildPipeline extends PipelineTemplate {
         // Simulate running npm build
         System.out.println("Running command: npm build");
 
-        // Simulate some delay
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         System.out.println("Build completed successfully!");
         return true;
     }

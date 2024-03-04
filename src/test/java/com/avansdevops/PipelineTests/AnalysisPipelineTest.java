@@ -46,48 +46,4 @@ public class AnalysisPipelineTest {
         // inOrder.verify(analysisPipeline).run();
         inOrder.verify(analysisPipeline).teardown();
     }
-
-    @Test
-    public void threadSleepInterruptedExceptionSetup() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                analysisPipeline.setup();
-            }
-        });
-
-        thread.start();
-
-        // Interrupt the thread
-        thread.interrupt();
-
-        try {
-            // Wait for the thread to finish
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void threadSleepInterruptedExceptionRun() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                analysisPipeline.run();
-            }
-        });
-
-        thread.start();
-
-        // Interrupt the thread
-        thread.interrupt();
-
-        try {
-            // Wait for the thread to finish
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }

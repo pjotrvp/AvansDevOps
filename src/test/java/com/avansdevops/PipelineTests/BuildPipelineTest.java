@@ -46,48 +46,4 @@ public class BuildPipelineTest {
         // inOrder.verify(buildPipeline).run();
         inOrder.verify(buildPipeline).teardown();
     }
-
-    @Test
-    public void threadSleepInterruptedExceptionSetup() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                buildPipeline.setup();
-            }
-        });
-
-        thread.start();
-
-        // Interrupt the thread
-        thread.interrupt();
-
-        try {
-            // Wait for the thread to finish
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void threadSleepInterruptedExceptionRun() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                buildPipeline.run();
-            }
-        });
-
-        thread.start();
-
-        // Interrupt the thread
-        thread.interrupt();
-
-        try {
-            // Wait for the thread to finish
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }

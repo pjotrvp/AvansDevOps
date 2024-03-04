@@ -13,12 +13,6 @@ public class TestPipeline extends PipelineTemplate {
         // Simulate running mvn install
         System.out.println("Running command: mvn install");
 
-        // Simulate some delay
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         System.out.println("Dependencies installed successfully!");
         return true;
     }
@@ -31,12 +25,6 @@ public class TestPipeline extends PipelineTemplate {
         // Simulate running npm test
         System.out.println("Running command: mvn test");
 
-        // Simulate some delay
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         System.out.println("Tests completed successfully!");
         return true;
     }

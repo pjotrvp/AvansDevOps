@@ -12,12 +12,6 @@ public class AnalysisPipeline extends PipelineTemplate {
         // Simulate running npm install
         System.out.println("Running command: surefire install");
 
-        // Simulate some delay
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         System.out.println("Dependencies installed successfully!");
         return true;
     }
@@ -30,12 +24,6 @@ public class AnalysisPipeline extends PipelineTemplate {
         // Simulate running npm analyze
         System.out.println("Running command: surefire analyse");
 
-        // Simulate some delay
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         System.out.println("Analysis completed successfully!");
         return true;
     }
