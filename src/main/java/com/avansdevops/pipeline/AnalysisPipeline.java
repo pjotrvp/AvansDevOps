@@ -14,6 +14,6 @@ public class AnalysisPipeline extends PipelineTemplate {
 
     @Override
     public Boolean run() {
-        return executeStep("Analyzing the project...", "surefire analyse", "Analysis completed successfully!");
+        return executeStep("Analysing the project...", "surefire analysis", "Analysis completed successfully!");
     }
 }
