@@ -3,7 +3,7 @@ package com.avansdevops.pipeline;
 public abstract class PipelineTemplate {
     private String pipelineName;
 
-    public PipelineTemplate(String pipelineName) {
+    protected PipelineTemplate(String pipelineName) {
         this.pipelineName = pipelineName;
     }
 
