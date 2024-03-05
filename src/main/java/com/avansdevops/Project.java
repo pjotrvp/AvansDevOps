@@ -34,6 +34,6 @@ public class Project {
     }
 
     public Scm getScm() {
-        return new Scm("GitLab");
+        return new Scm("Git", "System.out.println(\"Hello World\");");
     }
 }
