@@ -1,38 +1,37 @@
-package com.avansdevops.BacklogItems;
+package com.avansdevops.backlog;
 
 import com.avansdevops.BacklogItem;
 
-public class TodoState implements IBacklogItemState {
+public class DoneState implements IBacklogItemState {
 
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
-        System.out.println("Already in Todo");
+        System.out.println("Cannot move to Todo from Done");
     }
 
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
-        System.out.println("Moving to Doing from Todo");
-        backlogItem.setState(new DoingState());
+        System.out.println("Cannot move to Doing from Done");
     }
 
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Ready for Testing from Todo");
+        System.out.println("Cannot move to Ready for Testing from Done");
     }
 
     @Override
     public void moveToTesting(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Testing from Todo");
+        System.out.println("Cannot move to Testing from Done");
     }
 
     @Override
     public void moveToTested(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Tested from Todo");
+        System.out.println("Cannot move to Tested from Done");
     }
 
     @Override
     public void moveToDone(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Done from Todo");
+        System.out.println("Already in Done");
     }
 
 }

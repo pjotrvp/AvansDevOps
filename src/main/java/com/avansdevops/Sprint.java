@@ -10,6 +10,8 @@ public class Sprint {
     private Backlog backlog;
     private boolean started;
 
+    private static final String SPRINT_ALREADY_STARTED_ERROR = "Sprint already started";
+
     public Sprint(String name,
             Date startDate,
             Date endDate,
@@ -40,7 +42,7 @@ public class Sprint {
         if (!started) {
             this.name = name;
         } else {
-            throw new IllegalStateException("Sprint already started");
+            throw new IllegalStateException(SPRINT_ALREADY_STARTED_ERROR);
         }
     }
 
@@ -48,7 +50,7 @@ public class Sprint {
         if (!started) {
             this.goal = goal;
         } else {
-            throw new IllegalStateException("Sprint already started");
+            throw new IllegalStateException(SPRINT_ALREADY_STARTED_ERROR);
         }
     }
 
@@ -56,7 +58,7 @@ public class Sprint {
         if (!started) {
             this.startDate = startDate;
         } else {
-            throw new IllegalStateException("Sprint already started");
+            throw new IllegalStateException(SPRINT_ALREADY_STARTED_ERROR);
         }
     }
 
@@ -64,7 +66,7 @@ public class Sprint {
         if (!started) {
             this.endDate = endDate;
         } else {
-            throw new IllegalStateException("Sprint already started");
+            throw new IllegalStateException(SPRINT_ALREADY_STARTED_ERROR);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.avansdevops.BacklogItems;
+package com.avansdevops.backlog;
 
 import com.avansdevops.BacklogItem;
 

@@ -1,6 +1,9 @@
 package com.avansdevops;
 
 public class Scm {
-    public Scm() {
+    private String scmName;
+
+    public Scm(String scmName) {
+        this.scmName = scmName;
     }
 }

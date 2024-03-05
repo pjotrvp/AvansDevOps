@@ -25,8 +25,7 @@ public class Project {
         this.sprints.add(newSprint);
     }
 
-    public List<Sprint> getSprints()
-    {
+    public List<Sprint> getSprints() {
         return this.sprints;
     }
 
@@ -35,6 +34,6 @@ public class Project {
     }
 
     public Scm getScm() {
-        return new Scm();
+        return new Scm("GitLab");
     }
 }
