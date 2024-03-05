@@ -38,7 +38,7 @@ public class Sprint {
         return this.started;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws IllegalStateException {
         if (!started) {
             this.name = name;
         } else {
