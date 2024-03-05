@@ -18,7 +18,7 @@ public class Scm {
         return sourceCode;
     }
 
-    public void commit(String title, String code) {
+    public void commit(String title, String code) throws IllegalArgumentException {
         if (title.isEmpty()) {
             throw new IllegalArgumentException("Please provide a commit title");
         } else if (code.isEmpty()) {
@@ -29,7 +29,7 @@ public class Scm {
         }
     }
 
-    public void push() {
+    public void push() throws NullPointerException {
         if (commit.isEmpty()) {
             throw new NullPointerException("Nothing to push");
         } else {
