@@ -1,28 +1,29 @@
 package com.avansdevops.notifications;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
-import static org.mockito.Mockito.*;
 
-public class SprintNotificationTest {
+public class BacklogItemNotificationTest {
+    
     @Test
     public void testUpdate() {
         // Mock Notification adapter
         Notification notificationAdapter = mock(Notification.class);
 
-        // Create SprintNotification instance with the mocked adapter
-        SprintNotification sprintNotification = new SprintNotification(notificationAdapter);
+        // Create BacklogNotification instance with the mocked adapter
+        BacklogItemNotification backlogNotification = new BacklogItemNotification(notificationAdapter);
 
         // Define test message
         String message = "Test message";
 
         // Call the update method
-        sprintNotification.update(message);
+        backlogNotification.update(message);
 
         // Verify that the sendNotification method of the adapter was called with the
         // correct message
         verify(notificationAdapter).sendNotification(message);
-        
     }
 
     @Test
@@ -30,19 +31,18 @@ public class SprintNotificationTest {
         // Mock Notification adapter
         Notification notificationAdapter = mock(Notification.class);
 
-        // Create SprintNotification instance with the mocked adapter
-        SprintNotification sprintNotification = new SprintNotification(notificationAdapter);
+        // Create BacklogNotification instance with the mocked adapter
+        BacklogItemNotification backlogNotification = new BacklogItemNotification(notificationAdapter);
 
         // Define test message
         String message = null;
 
         // Call the update method
-        sprintNotification.update(message);
+        backlogNotification.update(message);
 
         // Verify that the sendNotification method of the adapter was called with the
         // correct message
         verify(notificationAdapter).sendNotification(message);
-        
     }
 
     @Test
@@ -50,18 +50,17 @@ public class SprintNotificationTest {
         // Mock Notification adapter
         Notification notificationAdapter = mock(Notification.class);
 
-        // Create SprintNotification instance with the mocked adapter
-        SprintNotification sprintNotification = new SprintNotification(notificationAdapter);
+        // Create BacklogNotification instance with the mocked adapter
+        BacklogItemNotification backlogNotification = new BacklogItemNotification(notificationAdapter);
 
         // Define test message
         String message = "";
 
         // Call the update method
-        sprintNotification.update(message);
+        backlogNotification.update(message);
 
         // Verify that the sendNotification method of the adapter was called with the
         // correct message
         verify(notificationAdapter).sendNotification(message);
-        
     }
 }
