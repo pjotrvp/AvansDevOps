@@ -16,7 +16,7 @@ public class DoneStateTest {
     @Test
     public void testMoveToTodo() {
         backlogItem.moveToTodo();
-        assertTrue(backlogItem.getState() instanceof DoneState);
+        assertTrue(backlogItem.getState() instanceof TodoState);
     }
 
     @Test

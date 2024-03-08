@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.avansdevops.backlog.Backlog;
+import com.avansdevops.discussion.Forum;
 
 public class Project {
     private Backlog backlog;
     private String name;
     private List<User> members;
-    private DiscussionForum discussionForum;
+    private Forum discussionForum;
     private List<Sprint> sprints;
 
     public Project(String name) {
         this.name = name;
         this.backlog = new Backlog();
-        this.discussionForum = new DiscussionForum();
+        this.discussionForum = new Forum();
         this.sprints = new ArrayList<>();
     }
 
@@ -31,7 +32,7 @@ public class Project {
         return this.sprints;
     }
 
-    public DiscussionForum getDiscussionForum() {
+    public Forum getDiscussionForum() {
         return this.discussionForum;
     }
 

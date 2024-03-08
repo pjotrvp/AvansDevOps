@@ -25,7 +25,7 @@ public class BacklogItem {
         return subTasks;
     }
 
-    public void addSubTask(BacklogItem subTask) {
+    public void addSubTask(BacklogItem subTask) throws IllegalStateException {
         if (isSubTask) {
             throw new IllegalStateException("A subtask cannot have subtasks");
         }
@@ -93,7 +93,7 @@ public class BacklogItem {
         state.moveToTested(this);
     }
 
-    public void moveToDone() {
+    public void moveToDone() throws IllegalStateException {
         if (!isSubTask) {
             for (BacklogItem subTask : subTasks) {
                 if (!(subTask.getState() instanceof DoneState)) {

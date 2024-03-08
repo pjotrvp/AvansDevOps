@@ -4,7 +4,9 @@ public class DoneState implements IBacklogItemState {
 
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Todo from Done");
+        System.out.println("Moving to Todo from Done");
+        backlogItem.setState(new TodoState());
+        // notify scum master
     }
 
     @Override

@@ -63,12 +63,22 @@ public class BacklogItemTest {
     }
 
     @Test
+    public void testMoveToDoneWithoutSubTasks() {
+        backlogItem.setState(new TestedState());
+        backlogItem.moveToDone();
+        assertTrue(backlogItem.getState() instanceof DoneState);
+    }
+
+    @Test
     public void testMoveToDoneWithSubTasksDone() {
-        backlogItem.addSubTask(subTask1);
         backlogItem.setState(new TestedState());
         subTask1.setState(new TestedState());
+
+        backlogItem.addSubTask(subTask1);
+
         subTask1.moveToDone();
         assertTrue(subTask1.getState() instanceof DoneState);
+
         backlogItem.moveToDone();
         assertTrue(backlogItem.getState() instanceof DoneState);
     }
