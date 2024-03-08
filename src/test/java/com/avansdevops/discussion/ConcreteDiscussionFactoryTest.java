@@ -29,4 +29,14 @@ public class ConcreteDiscussionFactoryTest {
         assertEquals(content, discussion.getContent());
         assertTrue(forum.getDiscussions().contains(discussion));
     }
+
+    @Test
+    public void testCreateDiscussionNullForum() {
+        try {
+            factory.createDiscussion(null, "Discussion Title", "Discussion Content");
+            fail("Expected an IllegalArgumentException to be thrown");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The discussion needs a forum", e.getMessage());
+        }
+    }
 }

@@ -15,7 +15,7 @@ public class Project {
 
     public Project(String name) {
         this.name = name;
-        this.backlog = new Backlog();
+        this.backlog = new Backlog("Sprint 1");
         this.discussionForum = new Forum();
         this.sprints = new ArrayList<>();
     }

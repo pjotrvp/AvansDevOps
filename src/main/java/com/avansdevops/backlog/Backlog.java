@@ -1,17 +1,33 @@
 package com.avansdevops.backlog;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Backlog {
-    private List<BacklogItem> items;
-    public Backlog() {
-        items = new ArrayList<>();
+    private String title;
+    private List<BacklogItem> backlogItems = new ArrayList<>();
+
+    public Backlog(String title) {
+        this.title = title;
     }
 
-    public void addItem(BacklogItem item) {
-        items.add(item);
-        item.setState(new TodoState());
+    public void setBacklogItems(List<BacklogItem> backlogItems) {
+        this.backlogItems = backlogItems;
     }
 
+    public List<BacklogItem> getBacklogItems() {
+        return backlogItems.stream()
+                .sorted(Comparator.comparing(BacklogItem::getTitle))
+                .collect(Collectors.toList());
+    }
+
+    public void addBacklogItem(BacklogItem item) {
+        backlogItems.add(item);
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

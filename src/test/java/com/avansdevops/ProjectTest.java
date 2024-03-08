@@ -2,9 +2,6 @@ package com.avansdevops;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import org.junit.Test;
 
 public class ProjectTest {
