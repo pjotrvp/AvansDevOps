@@ -2,6 +2,8 @@ package com.avansdevops;
 
 import java.util.Date;
 
+import com.avansdevops.backlog.Backlog;
+
 public class Sprint {
     private String name;
     private Date startDate;

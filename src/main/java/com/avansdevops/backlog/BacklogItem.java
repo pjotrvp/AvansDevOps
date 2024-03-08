@@ -1,7 +1,6 @@
-package com.avansdevops;
+package com.avansdevops.backlog;
 
-import com.avansdevops.backlog.IBacklogItemState;
-import com.avansdevops.backlog.TodoState;
+import com.avansdevops.User;
 
 public class BacklogItem {
     private String title;
@@ -24,5 +23,29 @@ public class BacklogItem {
 
     public IBacklogItemState getState() {
         return state;
+    }
+
+    public void moveToTodo() {
+        state.moveToTodo(this);
+    }
+
+    public void moveToDoing() {
+        state.moveToDoing(this);
+    }
+
+    public void moveToReadyForTesting() {
+        state.moveToReadyForTesting(this);
+    }
+
+    public void moveToTesting() {
+        state.moveToTesting(this);
+    }
+
+    public void moveToTested() {
+        state.moveToTested(this);
+    }
+
+    public void moveToDone() {
+        state.moveToDone(this);
     }
 }

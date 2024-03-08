@@ -1,7 +1,5 @@
 package com.avansdevops.backlog;
 
-import com.avansdevops.BacklogItem;
-
 public class ReadyForTestingState implements IBacklogItemState {
 
     @Override

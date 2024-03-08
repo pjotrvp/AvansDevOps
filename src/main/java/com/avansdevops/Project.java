@@ -3,6 +3,8 @@ package com.avansdevops;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avansdevops.backlog.Backlog;
+
 public class Project {
     private Backlog backlog;
     private String name;
