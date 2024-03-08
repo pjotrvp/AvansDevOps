@@ -15,37 +15,37 @@ public class DoneStateTest {
 
     @Test
     public void testMoveToTodo() {
-        backlogItem.getState().moveToTodo(backlogItem);
+        backlogItem.moveToTodo();
         assertTrue(backlogItem.getState() instanceof DoneState);
     }
 
     @Test
     public void testMoveToDoing() {
-        backlogItem.getState().moveToDoing(backlogItem);
+        backlogItem.moveToDoing();
         assertTrue(backlogItem.getState() instanceof DoneState);
     }
 
     @Test
     public void testMoveToReadyForTesting() {
-        backlogItem.getState().moveToReadyForTesting(backlogItem);
+        backlogItem.moveToReadyForTesting();
         assertTrue(backlogItem.getState() instanceof DoneState);
     }
 
     @Test
     public void testMoveToTesting() {
-        backlogItem.getState().moveToTesting(backlogItem);
+        backlogItem.moveToTesting();
         assertTrue(backlogItem.getState() instanceof DoneState);
     }
 
     @Test
     public void testMoveToTested() {
-        backlogItem.getState().moveToTested(backlogItem);
+        backlogItem.moveToTested();
         assertTrue(backlogItem.getState() instanceof DoneState);
     }
 
     @Test
     public void testMoveToDone() {
-        backlogItem.getState().moveToDone(backlogItem);
+        backlogItem.moveToDone();
         assertTrue(backlogItem.getState() instanceof DoneState);
     }
 }
