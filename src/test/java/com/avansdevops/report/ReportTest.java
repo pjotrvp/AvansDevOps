@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,8 +37,17 @@ public class ReportTest {
     }
 
     @Test
-    public void testGenerateReport() throws IOException {
-        report.generateReport("pdf");
+    public void testGenerateReport() throws Exception {
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            try {
+                report.generateReport("pdf");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        // Wait for the CompletableFuture to finish
+        future.get();
         BufferedReader reader = new BufferedReader(new FileReader("reports/Test.pdf.txt"));
         assertEquals("Report Name: Test", reader.readLine());
         assertEquals("Sprint: Sprint 1", reader.readLine());
