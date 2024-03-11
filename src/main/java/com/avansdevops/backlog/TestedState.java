@@ -1,39 +1,44 @@
 package com.avansdevops.backlog;
 
 public class TestedState implements IBacklogItemState {
+    private void printMessage(String message) {
+        System.out.println(message);
+    }
+
+    private void printAndSetState(BacklogItem backlogItem, IBacklogItemState newState, String message) {
+        System.out.println(message);
+        backlogItem.setState(newState);
+    }
 
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Todo from Tested");
+        printMessage("Cannot move to Todo from Tested");
     }
 
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Doing from Tested");
+        printMessage("Cannot move to Doing from Tested");
     }
 
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Ready for Testing from Tested");
+        printMessage("Cannot move to Ready for Testing from Tested");
     }
 
     @Override
     public void moveToTesting(BacklogItem backlogItem) {
-        System.out.println("Move to Testing from Tested");
-        backlogItem.setState(new TestingState());
+        printAndSetState(backlogItem, new TestingState(), "Move to Testing from Tested");
         // notify observers
     }
 
     @Override
     public void moveToTested(BacklogItem backlogItem) {
-        System.out.println("Already in Tested");
+        printMessage("Already in Tested");
     }
 
     @Override
     public void moveToDone(BacklogItem backlogItem) {
-        System.out.println("Moving to Done from Tested");
-        backlogItem.setState(new DoneState());
+        printAndSetState(backlogItem, new DoneState(), "Moving to Done from Tested");
         // notify observers
     }
-
 }
