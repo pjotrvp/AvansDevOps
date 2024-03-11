@@ -1,14 +1,18 @@
 package com.avansdevops.report;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import com.avansdevops.Sprint;
 
 public class Report {
+    private static final Logger LOGGER = Logger.getLogger(Report.class.getName());
+
     private String name;
     private Sprint sprint;
     private String companyName;
@@ -30,7 +34,7 @@ public class Report {
 
     public void generateReport(String fileType) {
         String dirName = "reports";
-        String fileName = dirName + "/" + name + "." + fileType + ".txt";
+        String fileName = dirName + File.separator + name + "." + fileType + ".txt";
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             // Write header
@@ -49,7 +53,7 @@ public class Report {
             writer.write("Version: " + version + "\n");
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.severe("An error occurred while generating the report: " + e.getMessage());
         }
     }
 }
