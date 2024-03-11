@@ -4,34 +4,34 @@ public class TestingState implements IBacklogItemState {
 
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, new TodoState(), "Moving to Todo from Testing");
+        printAndSetState(backlogItem, new TodoState(), "Testing", "Todo");
         // notify observers
     }
 
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
-        printMessage("Cannot move to Doing from Testing");
+        printAndSetState(backlogItem, null, "Testing", "Doing");
     }
 
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, new ReadyForTestingState(), "Moving to Ready for Testing from Testing");
+        printAndSetState(backlogItem, new ReadyForTestingState(), "Testing", "Ready for Testing");
         // notify scrum master
     }
 
     @Override
     public void moveToTesting(BacklogItem backlogItem) {
-        printMessage("Already in Testing");
+        printAndSetState(backlogItem, null, "Testing", "Testing");
     }
 
     @Override
     public void moveToTested(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, new TestedState(), "Moving to Tested from Testing");
+        printAndSetState(backlogItem, new TestedState(), "Testing", "Tested");
         // notify observers
     }
 
     @Override
     public void moveToDone(BacklogItem backlogItem) {
-        printMessage("Cannot move to Done from Testing");
+        printAndSetState(backlogItem, null, "Testing", "Done");
     }
 }

@@ -1,35 +1,36 @@
 package com.avansdevops.backlog;
 
 public class TestedState implements IBacklogItemState {
+
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
-        printMessage("Cannot move to Todo from Tested");
+        printAndSetState(backlogItem, null, "Tested", "Todo");
     }
 
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
-        printMessage("Cannot move to Doing from Tested");
+        printAndSetState(backlogItem, null, "Tested", "Doing");
     }
 
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
-        printMessage("Cannot move to Ready for Testing from Tested");
+        printAndSetState(backlogItem, null, "Tested", "Ready for Testing");
     }
 
     @Override
     public void moveToTesting(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, new TestingState(), "Move to Testing from Tested");
+        printAndSetState(backlogItem, new TestingState(), "Tested", "Testing");
         // notify observers
     }
 
     @Override
     public void moveToTested(BacklogItem backlogItem) {
-        printMessage("Already in Tested");
+        printAndSetState(backlogItem, null, "Tested", "Tested");
     }
 
     @Override
     public void moveToDone(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, new DoneState(), "Moving to Done from Tested");
+        printAndSetState(backlogItem, new DoneState(), "Tested", "Done");
         // notify observers
     }
 }
