@@ -32,8 +32,20 @@ public class Project {
         return this.sprints;
     }
 
+    public List<User> getMembers() {
+        return this.members;
+    }
+
     public Forum getDiscussionForum() {
         return this.discussionForum;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Project: " + this.name;
+    
     }
 
     public Scm getScm() {
