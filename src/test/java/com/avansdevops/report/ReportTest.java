@@ -31,7 +31,7 @@ public class ReportTest {
 
     @Before
     public void setUp() {
-        sprint = new Sprint("Sprint 1", new Date(), new Date(), SprintGoal.PARTIALPRODUCT, new Backlog("Backlog 1"));
+        sprint = new Sprint("Sprint 1", new Date(), new Date(), SprintGoal.PARTIAL_PRODUCT, new Backlog("Backlog 1"));
         reportStrategy = Mockito.mock(IReportStrategy.class);
         when(reportStrategy.generateReportInformation(sprint)).thenReturn("Report Information");
         report = new Report("Test", sprint, "Company Name", "Company Logo", 1, reportStrategy);

@@ -21,7 +21,7 @@ public class TeamReportTest {
 
     @Before
     public void setUp() {
-        sprint = new Sprint("Sprint 1", new Date(), new Date(), SprintGoal.PARTIALPRODUCT, new Backlog("Backlog 1"));
+        sprint = new Sprint("Sprint 1", new Date(), new Date(), SprintGoal.PARTIAL_PRODUCT, new Backlog("Backlog 1"));
         user1 = new User("User 1", UserRole.DEVELOPER);
         user2 = new User("User 2", UserRole.SCRUMMASTER);
         teamReport = new TeamReport();

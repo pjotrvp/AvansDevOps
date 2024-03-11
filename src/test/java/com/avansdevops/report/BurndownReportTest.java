@@ -24,7 +24,7 @@ public class BurndownReportTest {
         backlog = new Backlog("Backlog");
         item1 = new BacklogItem("Item 1", "Description 1", 3);
         item2 = new BacklogItem("Item 2", "Description 2", 5);
-        sprint = new Sprint("Sprint 1", new Date(), new Date(), SprintGoal.PARTIALPRODUCT, backlog);
+        sprint = new Sprint("Sprint 1", new Date(), new Date(), SprintGoal.PARTIAL_PRODUCT, backlog);
         burndownReport = new BurndownReport();
     }
 

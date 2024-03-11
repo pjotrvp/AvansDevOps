@@ -32,7 +32,7 @@ public class StoryPointsReportTest {
         item2 = new BacklogItem("Item 2", "Description 2", 5);
         item1.setAssignee(user1);
         item2.setAssignee(user2);
-        sprint = new Sprint("Sprint 1", new Date(), new Date(), SprintGoal.PARTIALPRODUCT, backlog);
+        sprint = new Sprint("Sprint 1", new Date(), new Date(), SprintGoal.PARTIAL_PRODUCT, backlog);
         storyPointsReport = new StoryPointsReport();
     }
 
