@@ -12,4 +12,13 @@ public interface IBacklogItemState {
     void moveToTested(BacklogItem backlogItem);
 
     void moveToDone(BacklogItem backlogItem);
+
+    default void printMessage(String message) {
+        System.out.println(message);
+    }
+
+    default void printAndSetState(BacklogItem backlogItem, IBacklogItemState newState, String message) {
+        printMessage(message);
+        backlogItem.setState(newState);
+    }
 }

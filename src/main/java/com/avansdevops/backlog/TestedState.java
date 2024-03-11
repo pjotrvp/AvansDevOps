@@ -1,15 +1,6 @@
 package com.avansdevops.backlog;
 
 public class TestedState implements IBacklogItemState {
-    private void printMessage(String message) {
-        System.out.println(message);
-    }
-
-    private void printAndSetState(BacklogItem backlogItem, IBacklogItemState newState, String message) {
-        System.out.println(message);
-        backlogItem.setState(newState);
-    }
-
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
         printMessage("Cannot move to Todo from Tested");
