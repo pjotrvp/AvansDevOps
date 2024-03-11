@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -38,9 +39,8 @@ public class ReportTest {
 
     @Test
     public void testGenerateReport() {
-        try {
-            report.generateReport("pdf");
-            BufferedReader reader = new BufferedReader(new FileReader("reports/Test.pdf.txt"));
+        report.generateReport("pdf");
+        try (BufferedReader reader = new BufferedReader(new FileReader("reports" + File.separator + "Test.pdf.txt"))) {
             assertEquals("Report Name: Test", reader.readLine());
             assertEquals("Sprint: Sprint 1", reader.readLine());
             assertEquals("Company Name: Company Name", reader.readLine());
@@ -50,7 +50,6 @@ public class ReportTest {
             assertEquals("", reader.readLine());
             assertEquals("Date: " + dateFormat.format(todayDate), reader.readLine());
             assertEquals("Version: 1", reader.readLine());
-            reader.close();
         } catch (IOException e) {
             fail("IOException was thrown: " + e.getMessage());
         }

@@ -35,8 +35,7 @@ public class Report {
     public void generateReport(String fileType) {
         String dirName = "reports";
         String fileName = dirName + File.separator + name + "." + fileType + ".txt";
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             // Write header
             writer.write("Report Name: " + name + "\n");
             writer.write("Sprint: " + sprint.getName() + "\n");
@@ -51,7 +50,6 @@ public class Report {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             writer.write("Date: " + dateFormat.format(date) + "\n");
             writer.write("Version: " + version + "\n");
-            writer.close();
         } catch (IOException e) {
             LOGGER.severe("An error occurred while generating the report: " + e.getMessage());
         }
