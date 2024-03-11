@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.avansdevops.User;
+import com.avansdevops.UserRole;
 
 import static org.junit.Assert.*;
 
@@ -18,7 +19,7 @@ public class BacklogItemTest {
         backlogItem = new BacklogItem("title", "description", 1);
         subTask1 = new BacklogItem("subtask1 title", "subtask1 description", 1);
         subTask2 = new BacklogItem("subtask2 title", "subtask2 description", 1);
-        user = new User("Piet");
+        user = new User("Piet", UserRole.DEVELOPER);
     }
 
     @Test

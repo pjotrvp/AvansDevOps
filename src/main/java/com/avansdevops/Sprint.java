@@ -1,8 +1,11 @@
 package com.avansdevops;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.avansdevops.backlog.Backlog;
+import com.avansdevops.backlog.BacklogItem;
 
 public class Sprint {
     private String name;
@@ -11,6 +14,7 @@ public class Sprint {
     private SprintGoal goal;
     private Backlog backlog;
     private boolean started;
+    private List<User> participants = new ArrayList<>();
 
     private static final String SPRINT_ALREADY_STARTED_ERROR = "Sprint already started";
 
@@ -29,6 +33,20 @@ public class Sprint {
         if (startDate.before(new Date())) {
             this.started = true;
         }
+    }
+
+    public void addParticipant(User user) {
+        if (!participants.contains(user)) {
+            participants.add(user);
+        }
+    }
+
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public List<BacklogItem> getBacklog() {
+        return this.backlog.getBacklogItems();
     }
 
     public void start() {
@@ -75,5 +93,4 @@ public class Sprint {
     public Object getName() {
         return this.name;
     }
-
 }
