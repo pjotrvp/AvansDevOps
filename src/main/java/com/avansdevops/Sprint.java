@@ -93,4 +93,16 @@ public class Sprint {
     public Object getName() {
         return this.name;
     }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public SprintGoal getGoal() {
+        return goal;
+    }
 }
