@@ -13,7 +13,7 @@ public interface IBacklogItemState {
 
     void moveToDone(BacklogItem backlogItem);
 
-    default String generateMessage(String currentState, String targetState, boolean canMove) {
+    default String generateMessage(State currentState, State targetState, boolean canMove) {
         if (currentState.equals(targetState)) {
             return "Already in " + currentState;
         } else if (canMove) {
@@ -23,8 +23,8 @@ public interface IBacklogItemState {
         }
     }
 
-    default void printAndSetState(BacklogItem backlogItem, IBacklogItemState newState, String currentState,
-            String targetState) {
+    default void printAndSetState(BacklogItem backlogItem, IBacklogItemState newState, State currentState,
+            State targetState) {
         String message = generateMessage(currentState, targetState, newState != null);
         System.out.println(message);
         if (newState != null) {

@@ -4,33 +4,33 @@ public class ReadyForTestingState implements IBacklogItemState {
 
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, "Ready for Testing", "Todo");
+        printAndSetState(backlogItem, null, State.READY_FOR_TESTING, State.TODO);
     }
 
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, new DoingState(), "Ready for Testing", "Doing");
+        printAndSetState(backlogItem, new DoingState(), State.READY_FOR_TESTING, State.DOING);
         // notify scrum master
     }
 
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, "Ready for Testing", "Ready for Testing");
+        printAndSetState(backlogItem, null, State.READY_FOR_TESTING, State.READY_FOR_TESTING);
     }
 
     @Override
     public void moveToTesting(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, new TestingState(), "Ready for Testing", "Testing");
+        printAndSetState(backlogItem, new TestingState(), State.READY_FOR_TESTING, State.TESTING);
         // notify observers
     }
 
     @Override
     public void moveToTested(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, "Ready for Testing", "Tested");
+        printAndSetState(backlogItem, null, State.READY_FOR_TESTING, State.TESTED);
     }
 
     @Override
     public void moveToDone(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, "Ready for Testing", "Done");
+        printAndSetState(backlogItem, null, State.READY_FOR_TESTING, State.DONE);
     }
 }
