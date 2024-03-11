@@ -1,6 +1,7 @@
 package com.avansdevops.report;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
@@ -36,19 +37,23 @@ public class ReportTest {
     }
 
     @Test
-    public void testGenerateReport() throws Exception {
-        report.generateReport("pdf");
-        BufferedReader reader = new BufferedReader(new FileReader("reports/Test.pdf.txt"));
-        assertEquals("Report Name: Test", reader.readLine());
-        assertEquals("Sprint: Sprint 1", reader.readLine());
-        assertEquals("Company Name: Company Name", reader.readLine());
-        assertEquals("Company Logo: Company Logo", reader.readLine());
-        assertEquals("", reader.readLine());
-        assertEquals("Report Information", reader.readLine());
-        assertEquals("", reader.readLine());
-        assertEquals("Date: " + dateFormat.format(todayDate), reader.readLine());
-        assertEquals("Version: 1", reader.readLine());
-        reader.close();
+    public void testGenerateReport() {
+        try {
+            report.generateReport("pdf");
+            BufferedReader reader = new BufferedReader(new FileReader("reports/Test.pdf.txt"));
+            assertEquals("Report Name: Test", reader.readLine());
+            assertEquals("Sprint: Sprint 1", reader.readLine());
+            assertEquals("Company Name: Company Name", reader.readLine());
+            assertEquals("Company Logo: Company Logo", reader.readLine());
+            assertEquals("", reader.readLine());
+            assertEquals("Report Information", reader.readLine());
+            assertEquals("", reader.readLine());
+            assertEquals("Date: " + dateFormat.format(todayDate), reader.readLine());
+            assertEquals("Version: 1", reader.readLine());
+            reader.close();
+        } catch (IOException e) {
+            fail("IOException was thrown: " + e.getMessage());
+        }
     }
 
     @After
