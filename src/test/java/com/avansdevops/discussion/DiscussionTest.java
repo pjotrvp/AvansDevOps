@@ -16,13 +16,10 @@ import com.avansdevops.backlog.TodoState;
 public class DiscussionTest {
     private Discussion discussion;
     private BacklogItem backlogItem;
-    private DiscussionFactory factory;
 
     @Before
     public void setUp() {
-        factory = new ConcreteDiscussionFactory();
-        Forum forum = factory.createForum();
-        discussion = factory.createDiscussion(forum, "Discussion Title", "Discussion Content");
+        discussion = new Discussion("Discussion Title", "Discussion Content");
         backlogItem = new BacklogItem("title", "description", 1);
     }
 

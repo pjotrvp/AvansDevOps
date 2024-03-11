@@ -10,12 +10,16 @@ import org.junit.Test;
 
 public class ForumTest {
     private Forum forum;
-    private ConcreteDiscussionFactory factory;
 
     @Before
     public void setUp() {
-        factory = new ConcreteDiscussionFactory();
-        forum = factory.createForum();
+        forum = new Forum("Forum Name");
+    }
+
+    @Test
+    public void testForumName() {
+        forum.setForumName("New Forum Name");
+        assertEquals("New Forum Name", forum.getForumName());
     }
 
     @Test

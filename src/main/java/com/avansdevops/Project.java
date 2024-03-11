@@ -16,7 +16,7 @@ public class Project {
     public Project(String name) {
         this.name = name;
         this.backlog = new Backlog("Sprint 1");
-        this.discussionForum = new Forum();
+        this.discussionForum = new Forum("Discussion Forum");
         this.sprints = new ArrayList<>();
     }
 
@@ -40,12 +40,10 @@ public class Project {
         return this.discussionForum;
     }
 
-
-
     @Override
     public String toString() {
         return "Project: " + this.name;
-    
+
     }
 
     public Scm getScm() {
