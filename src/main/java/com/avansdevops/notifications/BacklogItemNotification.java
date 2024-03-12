@@ -11,5 +11,4 @@ public class BacklogItemNotification implements Observer {
     public void update(String message) {
         notificationAdapter.sendNotification(message);
     }
-    
 }
