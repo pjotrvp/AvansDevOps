@@ -49,14 +49,14 @@ public class Discussion {
         responses.add(response);
     }
 
-    public void moveBacklogItem(BacklogItem backlogItem) throws IllegalArgumentException, IllegalStateException {
-        if (backlogItem == null) {
+    public void moveBacklogItem() throws IllegalArgumentException, IllegalStateException {
+        if (this.backlogItem == null) {
             throw new IllegalArgumentException("No backlog item linked to this discussion");
         }
 
-        if (!(backlogItem.getState() instanceof DoneState)) {
+        if (!(this.backlogItem.getState() instanceof DoneState)) {
             throw new IllegalStateException("Backlog item must be in the Done state to move it to the Todo state");
         }
-        backlogItem.moveToTodo();
+        this.backlogItem.moveToTodo();
     }
 }

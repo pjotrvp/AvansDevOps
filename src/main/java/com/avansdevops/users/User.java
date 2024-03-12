@@ -1,8 +1,7 @@
 package com.avansdevops.users;
 
 public interface User {
+    String getName();
 
-    public void performTask();
-    public String getName();
-    public UserRole getRole();
+    UserRole getRole();
 }

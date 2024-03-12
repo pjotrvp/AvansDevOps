@@ -2,7 +2,7 @@ package com.avansdevops.users;
 
 public enum UserRole {
     DEVELOPER,
-    SCRUMMASTER,
-    PRODUCTOWNER,
+    SCRUM_MASTER,
+    PRODUCT_OWNER,
     TESTER,
 }

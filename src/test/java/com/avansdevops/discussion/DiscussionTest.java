@@ -46,14 +46,14 @@ public class DiscussionTest {
         backlogItem.setState(new DoneState());
 
         discussion.setBacklogItem(backlogItem);
-        discussion.moveBacklogItem(backlogItem);
+        discussion.moveBacklogItem();
         assertTrue(backlogItem.getState() instanceof TodoState);
     }
 
     @Test
     public void testMoveBacklogItemNull() {
         try {
-            discussion.moveBacklogItem(null);
+            discussion.moveBacklogItem();
             fail("Expected an IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             assertEquals("No backlog item linked to this discussion", e.getMessage());
@@ -63,8 +63,9 @@ public class DiscussionTest {
     @Test
     public void testMoveBacklogItemNotDone() {
         BacklogItem backlogItemNotDone = new BacklogItem("title", "description", 1);
+        discussion.setBacklogItem(backlogItemNotDone);
         try {
-            discussion.moveBacklogItem(backlogItemNotDone);
+            discussion.moveBacklogItem();
             fail("Expected an IllegalStateException to be thrown");
         } catch (IllegalStateException e) {
             assertEquals("Backlog item must be in the Done state to move it to the Todo state", e.getMessage());

@@ -32,7 +32,7 @@ public class TeamReportTest {
     public void testGenerateReportInformation() {
         sprint.addParticipant(user1);
         sprint.addParticipant(user2);
-        String expected = "Team Report\n-----------\nParticipants:\n- User 1 (DEVELOPER)\n- User 2 (SCRUMMASTER)\n";
+        String expected = "Team Report\n-----------\nParticipants:\n- User 1 (DEVELOPER)\n- User 2 (SCRUM_MASTER)\n";
         String actual = teamReport.generateReportInformation(sprint);
         assertEquals(expected, actual);
     }

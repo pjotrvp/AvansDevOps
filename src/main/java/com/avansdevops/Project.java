@@ -5,11 +5,9 @@ import java.util.List;
 
 import com.avansdevops.backlog.Backlog;
 import com.avansdevops.discussion.Forum;
-import com.avansdevops.users.Developer;
-import com.avansdevops.users.ProductOwner;
-import com.avansdevops.users.ScrumMaster;
-import com.avansdevops.users.Tester;
 import com.avansdevops.users.User;
+import com.avansdevops.users.UserFactory;
+import com.avansdevops.users.UserRole;
 
 public class Project {
     private Backlog backlog;
@@ -17,6 +15,7 @@ public class Project {
     private List<User> members;
     private Forum discussionForum;
     private List<Sprint> sprints;
+    private UserFactory userFactory = new UserFactory();
 
     public Project(String name) {
         this.name = name;
@@ -33,24 +32,9 @@ public class Project {
         this.sprints.add(newSprint);
     }
 
-    public void createDeveloper(String name)
-    {
-        this.members.add(new Developer(name));  
-    }
-
-    public void createProductOwner(String name)
-    {
-        this.members.add(new ProductOwner(name));
-    }
-
-    public void createScrumMaster(String name)
-    {
-        this.members.add(new ScrumMaster(name));
-    }
-
-    public void createTester(String name)
-    {
-        this.members.add(new Tester(name));
+    public void addMember(UserRole role, String name) {
+        User user = userFactory.createUser(role, name);
+        this.members.add(user);
     }
 
     public List<Sprint> getSprints() {
