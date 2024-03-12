@@ -1,6 +1,6 @@
 package com.avansdevops;
 
 public enum SprintGoal {
-    PARTIALPRODUCT,
+    PARTIAL_PRODUCT,
     RELEASE
 }

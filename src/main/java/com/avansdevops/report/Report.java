@@ -1,14 +1,18 @@
 package com.avansdevops.report;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import com.avansdevops.Sprint;
 
 public class Report {
+    private static final Logger LOGGER = Logger.getLogger(Report.class.getName());
+
     private String name;
     private Sprint sprint;
     private String companyName;
@@ -16,10 +20,6 @@ public class Report {
     private int version;
     private Date date;
     private IReportStrategy reportStrategy;
-
-    protected BufferedWriter getBufferedWriter(String fileName) throws IOException {
-        return new BufferedWriter(new FileWriter(fileName));
-    }
 
     public Report(String name, Sprint sprint, String companyName, String companyLogo, int version,
             IReportStrategy reportStrategy) {
@@ -32,10 +32,10 @@ public class Report {
         this.reportStrategy = reportStrategy;
     }
 
-    public void generateReport(String fileType) throws IOException {
+    public void generateReport(String fileType) {
         String dirName = "reports";
-        String fileName = dirName + "/" + name + "." + fileType + ".txt";
-        try (BufferedWriter writer = getBufferedWriter(fileName)) {
+        String fileName = dirName + File.separator + name + "." + fileType + ".txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             // Write header
             writer.write("Report Name: " + name + "\n");
             writer.write("Sprint: " + sprint.getName() + "\n");
@@ -51,7 +51,7 @@ public class Report {
             writer.write("Date: " + dateFormat.format(date) + "\n");
             writer.write("Version: " + version + "\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.severe("An error occurred while generating the report: " + e.getMessage());
         }
     }
 }

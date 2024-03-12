@@ -4,38 +4,34 @@ public class TestingState implements IBacklogItemState {
 
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
-        System.out.println("Moving to Todo from Testing");
-        backlogItem.setState(new TodoState());
+        printAndSetState(backlogItem, new TodoState(), State.TESTING, State.TODO);
         // notify observers
     }
 
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Doing from Testing");
+        printAndSetState(backlogItem, null, State.TESTING, State.DOING);
     }
 
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
-        System.out.println("Moving to Ready for Testing from Testing");
-        backlogItem.setState(new ReadyForTestingState());
+        printAndSetState(backlogItem, new ReadyForTestingState(), State.TESTING, State.READY_FOR_TESTING);
         // notify scrum master
     }
 
     @Override
     public void moveToTesting(BacklogItem backlogItem) {
-        System.out.println("Already in Testing");
+        printAndSetState(backlogItem, null, State.TESTING, State.TESTING);
     }
 
     @Override
     public void moveToTested(BacklogItem backlogItem) {
-        System.out.println("Moving to Tested from Testing");
-        backlogItem.setState(new TestedState());
+        printAndSetState(backlogItem, new TestedState(), State.TESTING, State.TESTED);
         // notify observers
     }
 
     @Override
     public void moveToDone(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Done from Testing");
+        printAndSetState(backlogItem, null, State.TESTING, State.DONE);
     }
-
 }

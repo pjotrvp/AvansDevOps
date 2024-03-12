@@ -22,7 +22,7 @@ public class SprintTest {
         Date endDate = calendar.getTime();
 
         // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIALPRODUCT,
+        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
                 project.getBacklog());
         project.addSprint(sprint);
         assertNotNull(project.getSprints());
@@ -39,7 +39,7 @@ public class SprintTest {
         Date endDate = calendar.getTime();
 
         // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIALPRODUCT,
+        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
                 project.getBacklog());
         project.addSprint(sprint);
         sprint.start();
@@ -62,7 +62,7 @@ public class SprintTest {
         Date endDate = calendar.getTime();
 
         // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIALPRODUCT,
+        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
                 project.getBacklog());
         project.addSprint(sprint);
         sprint.setName("Anti jumping feature");
@@ -80,7 +80,7 @@ public class SprintTest {
         Date endDate = calendar.getTime();
 
         // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIALPRODUCT,
+        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
                 project.getBacklog());
         project.addSprint(sprint);
         assertEquals(true, sprint.isStarted());
@@ -97,7 +97,7 @@ public class SprintTest {
         Date endDate = calendar.getTime();
 
         // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIALPRODUCT,
+        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
                 project.getBacklog());
         project.addSprint(sprint);
         assertEquals(false, sprint.isStarted());

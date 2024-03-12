@@ -4,34 +4,32 @@ public class DoneState implements IBacklogItemState {
 
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
-        System.out.println("Moving to Todo from Done");
-        backlogItem.setState(new TodoState());
+        printAndSetState(backlogItem, new TodoState(), State.DONE, State.TODO);
         // notify scum master
     }
 
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Doing from Done");
+        printAndSetState(backlogItem, null, State.DONE, State.DOING);
     }
 
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Ready for Testing from Done");
+        printAndSetState(backlogItem, null, State.DONE, State.READY_FOR_TESTING);
     }
 
     @Override
     public void moveToTesting(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Testing from Done");
+        printAndSetState(backlogItem, null, State.DONE, State.TESTING);
     }
 
     @Override
     public void moveToTested(BacklogItem backlogItem) {
-        System.out.println("Cannot move to Tested from Done");
+        printAndSetState(backlogItem, null, State.DONE, State.TESTED);
     }
 
     @Override
     public void moveToDone(BacklogItem backlogItem) {
-        System.out.println("Already in Done");
+        printAndSetState(backlogItem, null, State.DONE, State.DONE);
     }
-
 }
