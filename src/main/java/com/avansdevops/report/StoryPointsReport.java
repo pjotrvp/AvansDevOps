@@ -4,8 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.avansdevops.Sprint;
-import com.avansdevops.User;
 import com.avansdevops.backlog.BacklogItem;
+import com.avansdevops.users.User;
 
 public class StoryPointsReport implements IReportStrategy {
     @Override

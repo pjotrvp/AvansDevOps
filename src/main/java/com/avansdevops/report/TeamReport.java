@@ -1,7 +1,7 @@
 package com.avansdevops.report;
 
 import com.avansdevops.Sprint;
-import com.avansdevops.User;
+import com.avansdevops.users.User;
 
 public class TeamReport implements IReportStrategy {
     @Override

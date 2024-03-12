@@ -3,7 +3,7 @@ package com.avansdevops.backlog;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.avansdevops.User;
+import com.avansdevops.users.User;
 
 public class BacklogItem {
     private String title;

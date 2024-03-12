@@ -3,8 +3,8 @@ package com.avansdevops.backlog;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.avansdevops.User;
-import com.avansdevops.UserRole;
+import com.avansdevops.users.Developer;
+import com.avansdevops.users.User;
 
 import static org.junit.Assert.*;
 
@@ -12,14 +12,14 @@ public class BacklogItemTest {
     private BacklogItem backlogItem;
     private BacklogItem subTask1;
     private BacklogItem subTask2;
-    private User user;
+    private Developer user;
 
     @Before
     public void setUp() {
         backlogItem = new BacklogItem("title", "description", 1);
         subTask1 = new BacklogItem("subtask1 title", "subtask1 description", 1);
         subTask2 = new BacklogItem("subtask2 title", "subtask2 description", 1);
-        user = new User("Piet", UserRole.DEVELOPER);
+        user = new Developer("Piet");
     }
 
     @Test

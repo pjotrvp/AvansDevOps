@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.avansdevops.backlog.Backlog;
 import com.avansdevops.backlog.BacklogItem;
+import com.avansdevops.users.User;
 
 public class Sprint {
     private String name;

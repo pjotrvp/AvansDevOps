@@ -9,9 +9,10 @@ import org.junit.Test;
 
 import com.avansdevops.Sprint;
 import com.avansdevops.SprintGoal;
-import com.avansdevops.User;
-import com.avansdevops.UserRole;
 import com.avansdevops.backlog.Backlog;
+import com.avansdevops.users.Developer;
+import com.avansdevops.users.ScrumMaster;
+import com.avansdevops.users.User;
 
 public class TeamReportTest {
     private Sprint sprint;
@@ -22,8 +23,8 @@ public class TeamReportTest {
     @Before
     public void setUp() {
         sprint = new Sprint("Sprint 1", new Date(), new Date(), SprintGoal.PARTIAL_PRODUCT, new Backlog("Backlog 1"));
-        user1 = new User("User 1", UserRole.DEVELOPER);
-        user2 = new User("User 2", UserRole.SCRUMMASTER);
+        user1 = new Developer("User 1");
+        user2 = new ScrumMaster("User 2");
         teamReport = new TeamReport();
     }
 
