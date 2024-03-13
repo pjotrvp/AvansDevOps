@@ -1,5 +1,7 @@
 package com.avansdevops.backlog;
 
+import com.avansdevops.notifications.Observer;
+
 public interface IBacklogItemState {
     void moveToTodo(BacklogItem backlogItem);
 
@@ -12,6 +14,10 @@ public interface IBacklogItemState {
     void moveToTested(BacklogItem backlogItem);
 
     void moveToDone(BacklogItem backlogItem);
+
+    void addObserver(Observer observer);
+
+    void removeObserver(Observer observer);
 
     default String generateMessage(ItemStatus currentState, ItemStatus targetState, boolean canMove) {
         if (currentState.equals(targetState)) {
@@ -31,4 +37,6 @@ public interface IBacklogItemState {
             backlogItem.setState(newState);
         }
     }
+
+    void notifyObservers(String message);
 }
