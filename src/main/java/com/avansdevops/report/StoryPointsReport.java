@@ -16,7 +16,7 @@ public class StoryPointsReport implements IReportStrategy {
 
         Map<User, Integer> userStoryPoints = new LinkedHashMap<>();
         for (User user : sprint.getParticipants()) {
-            for (BacklogItem item : sprint.getBacklog()) {
+            for (BacklogItem item : sprint.getBacklogItems()) {
                 if (user.equals(item.getAssignee())) {
                     userStoryPoints.put(user, userStoryPoints.getOrDefault(user, 0) + item.getStoryPoints());
                 }

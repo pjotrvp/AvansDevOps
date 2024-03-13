@@ -1,105 +1,107 @@
 package com.avansdevops;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.Assert.assertFalse;
 
-import java.util.Calendar;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import com.avansdevops.backlog.BacklogItem;
+import com.avansdevops.users.User;
+import com.avansdevops.users.UserFactory;
+import com.avansdevops.users.UserRole;
+
 public class SprintTest {
+    private Project project;
+    private Sprint releaseSprint;
+    private Sprint partialProductSprint;
+    private BacklogItem item;
+    private UserFactory userFactory = new UserFactory();
+    private User developer;
+    private User scrumMaster1;
+    private User scrumMaster2;
+    private User productOwner;
 
-    // requirement 2
-    @Test
-    public void projectCanMakeSprint() {
-        Project project = new Project("Project 1");
-        // create dates
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, 10, 10);
-        Date startDate = calendar.getTime();
-        calendar.set(2024, 10, 20);
-        Date endDate = calendar.getTime();
-
-        // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
-                project.getBacklog());
-        project.addSprint(sprint);
-        assertNotNull(project.getSprints());
+    @Before
+    public void setUp() {
+        project = new Project("Test Project");
+        releaseSprint = project.addSprint(new Date(), new Date(), SprintGoal.RELEASE);
+        partialProductSprint = project.addSprint(new Date(), new Date(), SprintGoal.PARTIAL_PRODUCT);
+        developer = userFactory.createUser(UserRole.DEVELOPER, "Developer");
+        scrumMaster1 = userFactory.createUser(UserRole.SCRUM_MASTER, "Scrum Master 1");
+        scrumMaster2 = userFactory.createUser(UserRole.SCRUM_MASTER, "Scrum Master 2");
+        productOwner = userFactory.createUser(UserRole.PRODUCT_OWNER, "Product Owner");
+        item = new BacklogItem("Test Item", "Test Description", 5);
+        project.addBacklogItem(item);
+        project.addMember(developer);
     }
 
     @Test
-    public void sprintCantBeEditedAfterStart() {
-        Project project = new Project("Project 1");
-        // create dates
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, 10, 10);
-        Date startDate = calendar.getTime();
-        calendar.set(2024, 10, 20);
-        Date endDate = calendar.getTime();
+    public void testStartSprint() {
+        releaseSprint.startSprint();
+        assertTrue(releaseSprint.hasStarted());
+    }
 
-        // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
-                project.getBacklog());
-        project.addSprint(sprint);
-        sprint.start();
+    @Test
+    public void testStartSprintAfterStart() throws IllegalStateException {
+        releaseSprint.startSprint();
         try {
-            sprint.setName("Anti jumping feature");
+            releaseSprint.startSprint();
+            fail("Should throw IllegalStateException");
         } catch (IllegalStateException e) {
-            assertEquals("Sprint already started", e.getMessage());
+            assertTrue(e.getMessage().equals("Sprint has already started or finished"));
         }
-        assertEquals("Anti flickering feature", sprint.getName());
     }
 
     @Test
-    public void sprintCanBeEditedBeforeStart() {
-        Project project = new Project("Project 1");
-        // create dates
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, 10, 10);
-        Date startDate = calendar.getTime();
-        calendar.set(2024, 10, 20);
-        Date endDate = calendar.getTime();
-
-        // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
-                project.getBacklog());
-        project.addSprint(sprint);
-        sprint.setName("Anti jumping feature");
-        assertEquals("Anti jumping feature", sprint.getName());
+    public void testStartSprintAfterFinish() throws Exception {
+        releaseSprint.startSprint();
+        releaseSprint.finishSprint(true);
+        try {
+            releaseSprint.startSprint();
+            fail("Should throw IllegalStateException");
+        } catch (IllegalStateException e) {
+            assertTrue(e.getMessage().equals("Sprint has already started or finished"));
+        }
     }
 
     @Test
-    public void sprintIsAutoStartedWhenStartDateIsInPastOrToday() {
-        Project project = new Project("Project 1");
-        // create dates
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2018, 10, 10);
-        Date startDate = calendar.getTime();
-        calendar.set(2018, 10, 20);
-        Date endDate = calendar.getTime();
-
-        // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
-                project.getBacklog());
-        project.addSprint(sprint);
-        assertEquals(true, sprint.isStarted());
+    public void testGenerateSprintReport() {
+        partialProductSprint.startSprint();
+        partialProductSprint.generateSprintReport("Test", "Company Name", "Company Logo", 1);
+        assertTrue(Files.exists(Paths.get("reports/Test.pdf.txt")));
+        assertNotNull(partialProductSprint.getReport());
     }
 
     @Test
-    public void sprintIsNotAutoStartedWhenStartDateIsInFuture() {
-        Project project = new Project("Project 1");
-        // create dates
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, 10, 10);
-        Date startDate = calendar.getTime();
-        calendar.set(2024, 10, 20);
-        Date endDate = calendar.getTime();
+    public void testGenerateSprintReportWithoutPartialProductGoal() {
+        releaseSprint.startSprint();
+        try {
+            releaseSprint.generateSprintReport("Test", "Company Name", "Company Logo", 1);
+            fail("Should throw IllegalStateException");
+        } catch (IllegalStateException e) {
+            assertTrue(e.getMessage().equals("Sprint goal is not partial product"));
+        }
+    }
 
-        // add the sprint
-        Sprint sprint = new Sprint("Anti flickering feature", startDate, endDate, SprintGoal.PARTIAL_PRODUCT,
-                project.getBacklog());
-        project.addSprint(sprint);
-        assertEquals(false, sprint.isStarted());
+    @Test
+    public void testFinishSprintUnsuccessful() throws Exception {
+        releaseSprint.startSprint();
+        releaseSprint.finishSprint(false);
+        assertTrue(releaseSprint.hasFinished());
+        assertFalse(releaseSprint.hasStarted());
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        Files.deleteIfExists(Paths.get("reports/Test.pdf.txt"));
     }
 }

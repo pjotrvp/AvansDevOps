@@ -12,7 +12,7 @@ public class BurndownReport implements IReportStrategy {
         report.append("Burndown Chart\n");
         report.append("--------------\n");
 
-        List<BacklogItem> items = sprint.getBacklog();
+        List<BacklogItem> items = sprint.getBacklogItems();
         int totalStoryPoints = items.stream().mapToInt(BacklogItem::getStoryPoints).sum();
 
         report.append("Total Story Points: " + totalStoryPoints + "\n");

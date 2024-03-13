@@ -1,6 +1,7 @@
 package com.avansdevops.backlog;
 
-public enum State {
+public enum ItemStatus {
+    WAITING,
     TODO,
     DOING,
     READY_FOR_TESTING,

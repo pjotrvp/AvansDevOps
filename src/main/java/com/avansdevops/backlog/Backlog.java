@@ -24,7 +24,9 @@ public class Backlog {
     }
 
     public void addBacklogItem(BacklogItem item) {
-        backlogItems.add(item);
+        if (!backlogItems.contains(item)) {
+            backlogItems.add(item);
+        }
     }
 
     public String getTitle() {

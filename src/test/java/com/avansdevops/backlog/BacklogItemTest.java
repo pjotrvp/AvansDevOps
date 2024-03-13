@@ -42,6 +42,12 @@ public class BacklogItemTest {
     }
 
     @Test
+    public void testCode() {
+        backlogItem.setCode("new code");
+        assertEquals("new code", backlogItem.getCode());
+    }
+
+    @Test
     public void testStoryPoints() {
         backlogItem.setStoryPoints(5);
         assertEquals(5, backlogItem.getStoryPoints());

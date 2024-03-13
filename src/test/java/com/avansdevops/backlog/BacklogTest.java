@@ -42,6 +42,13 @@ public class BacklogTest {
     }
 
     @Test
+    public void testDuplicateBacklogItem() {
+        backlog.addBacklogItem(item1);
+        backlog.addBacklogItem(item1);
+        assertEquals(1, backlog.getBacklogItems().size());
+    }
+
+    @Test
     public void testGetBacklogItems() {
         backlog.addBacklogItem(item1);
         backlog.addBacklogItem(item2);

@@ -7,11 +7,9 @@ public abstract class PipelineTemplate {
         this.pipelineName = pipelineName;
     }
 
-    public void executePipeline() {
+    public boolean executePipeline() {
         System.out.println("Executing " + pipelineName + " pipeline");
-        setup();
-        run();
-        teardown();
+        return setup() && run() && teardown();
     }
 
     public String getPipelineName() {

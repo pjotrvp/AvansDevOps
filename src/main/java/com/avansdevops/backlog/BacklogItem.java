@@ -13,12 +13,13 @@ public class BacklogItem {
     private IBacklogItemState state;
     private User assignee;
     private boolean isSubTask = false;
+    private String code;
 
     public BacklogItem(String title, String description, int storyPoints) {
         this.title = title;
         this.description = description;
         this.storyPoints = storyPoints;
-        this.state = new TodoState();
+        this.state = new WaitingState();
     }
 
     public List<BacklogItem> getSubTasks() {
@@ -63,6 +64,14 @@ public class BacklogItem {
 
     public void setStoryPoints(int storyPoints) {
         this.storyPoints = storyPoints;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public IBacklogItemState getState() {

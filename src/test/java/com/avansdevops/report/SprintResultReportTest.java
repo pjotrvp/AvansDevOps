@@ -11,10 +11,11 @@ import com.avansdevops.Project;
 import com.avansdevops.Sprint;
 import com.avansdevops.SprintGoal;
 import com.avansdevops.backlog.BacklogItem;
+import com.avansdevops.backlog.DoneState;
 
-public class BurndownReportTest {
+public class SprintResultReportTest {
     private Sprint sprint;
-    private BurndownReport burndownReport;
+    private SprintResultReport sprintResultReport;
     private BacklogItem item1;
     private BacklogItem item2;
     private Project project;
@@ -25,7 +26,7 @@ public class BurndownReportTest {
         item2 = new BacklogItem("Item 2", "Description 2", 5);
         project = new Project("Project 1");
         sprint = project.addSprint(new Date(), new Date(), SprintGoal.PARTIAL_PRODUCT);
-        burndownReport = new BurndownReport();
+        sprintResultReport = new SprintResultReport();
         project.addBacklogItem(item1);
         project.addBacklogItem(item2);
     }
@@ -34,15 +35,17 @@ public class BurndownReportTest {
     public void testGenerateReportInformation() throws Exception {
         sprint.addBacklogItem(item1);
         sprint.addBacklogItem(item2);
-        String expected = "Burndown Chart\n--------------\nTotal Story Points: 8\nDay\tRemaining Story Points\n1\t8\n2\t5\n3\t0\n";
-        String actual = burndownReport.generateReportInformation(sprint);
+        item1.setState(new DoneState());
+        item2.setState(new DoneState());
+        String expected = "Sprint Result - Partial Product\n--------------\n\nDone Backlog Items:\n- Item 1\n- Item 2\n";
+        String actual = sprintResultReport.generateReportInformation(sprint);
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGenerateReportInformation_NoBacklogItems() {
-        String expected = "Burndown Chart\n--------------\nTotal Story Points: 0\nDay\tRemaining Story Points\n1\t0\n";
-        String actual = burndownReport.generateReportInformation(sprint);
+        String expected = "Sprint Result - Partial Product\n--------------\n\nDone Backlog Items:\n";
+        String actual = sprintResultReport.generateReportInformation(sprint);
         assertEquals(expected, actual);
     }
 }

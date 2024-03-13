@@ -1,22 +1,26 @@
 package com.avansdevops;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Before;
+import org.junit.Test;
 
 public class ScmTest {
     private Scm git;
 
     @Before
     public void setUp() {
-        git = new Scm("TestScm", "System.out.println(\"Hello, World!\");");
+        git = new Scm("TestScm");
     }
 
     @Test
-    public void pullCode() {
-        String code = git.pull();
-        assertEquals("System.out.println(\"Hello, World!\");", code);
+    public void testPullIsEmpty() {
+        List<String> code = git.pull();
+        assertTrue(code.isEmpty());
     }
 
     @Test
@@ -60,7 +64,7 @@ public class ScmTest {
     public void pushWithCommit() {
         git.commit("Test commit", "new code");
         git.push();
-        assertEquals("new code", git.pull());
+        assertTrue(git.pull().contains("new code"));
         assertEquals(null, git.getCommitTitle());
         assertEquals(null, git.getCommitCode());
     }

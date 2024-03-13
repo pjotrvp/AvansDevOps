@@ -1,21 +1,22 @@
 package com.avansdevops;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Scm {
     private String scmName;
-    private String sourceCode;
+    private List<String> sourceCode = new ArrayList<>();
     private Map<String, String> commit = new HashMap<>();
 
-    public Scm(String scmName, String sourceCode) {
+    public Scm(String scmName) {
         this.scmName = scmName;
-        this.sourceCode = sourceCode;
     }
 
-    public String pull() {
+    public List<String> pull() {
         System.out.println("Pulling from " + scmName + " repository...");
-        return sourceCode;
+        return this.sourceCode;
     }
 
     public void commit(String title, String code) throws IllegalArgumentException {
@@ -34,7 +35,7 @@ public class Scm {
             throw new NullPointerException("Nothing to push");
         } else {
             System.out.println("Pushing to " + scmName + " repository...");
-            this.sourceCode = commit.get(commit.keySet().toArray()[0]);
+            this.sourceCode.add(commit.get(commit.keySet().toArray()[0]));
             this.commit.clear();
         }
     }

@@ -4,32 +4,32 @@ public class DoneState implements IBacklogItemState {
 
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, new TodoState(), State.DONE, State.TODO);
+        printAndSetState(backlogItem, new TodoState(), ItemStatus.DONE, ItemStatus.TODO);
         // notify scum master
     }
 
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, State.DONE, State.DOING);
+        printAndSetState(backlogItem, null, ItemStatus.DONE, ItemStatus.DOING);
     }
 
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, State.DONE, State.READY_FOR_TESTING);
+        printAndSetState(backlogItem, null, ItemStatus.DONE, ItemStatus.READY_FOR_TESTING);
     }
 
     @Override
     public void moveToTesting(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, State.DONE, State.TESTING);
+        printAndSetState(backlogItem, null, ItemStatus.DONE, ItemStatus.TESTING);
     }
 
     @Override
     public void moveToTested(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, State.DONE, State.TESTED);
+        printAndSetState(backlogItem, null, ItemStatus.DONE, ItemStatus.TESTED);
     }
 
     @Override
     public void moveToDone(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, State.DONE, State.DONE);
+        printAndSetState(backlogItem, null, ItemStatus.DONE, ItemStatus.DONE);
     }
 }

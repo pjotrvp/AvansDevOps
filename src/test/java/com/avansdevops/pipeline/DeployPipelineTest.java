@@ -1,14 +1,12 @@
 package com.avansdevops.pipeline;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
-
-@RunWith(MockitoJUnitRunner.class)
 public class DeployPipelineTest {
     private PipelineTemplate deployPipeline = Mockito.spy(new DeployPipeline("Analysis"));
 
@@ -33,9 +31,61 @@ public class DeployPipelineTest {
     }
 
     @Test
-    public void executePipelineWorks() {
-        // Call the method to test
-        deployPipeline.executePipeline();
+    public void executePipelineSuccess() {
+        Mockito.doReturn(true).when(deployPipeline).setup();
+        Mockito.doReturn(true).when(deployPipeline).run();
+        Mockito.doReturn(true).when(deployPipeline).teardown();
+
+        boolean result = deployPipeline.executePipeline();
+        assertTrue(result);
+
+        // Verify that the methods were called in the correct order
+        InOrder inOrder = Mockito.inOrder(deployPipeline);
+        inOrder.verify(deployPipeline).setup();
+        inOrder.verify(deployPipeline).run();
+        inOrder.verify(deployPipeline).teardown();
+    }
+
+    @Test
+    public void executePipelineSetupFails() {
+        Mockito.doReturn(false).when(deployPipeline).setup();
+        Mockito.doReturn(true).when(deployPipeline).run();
+        Mockito.doReturn(true).when(deployPipeline).teardown();
+
+        boolean result = deployPipeline.executePipeline();
+        assertTrue(!result);
+
+        // Verify that the methods were called in the correct order
+        InOrder inOrder = Mockito.inOrder(deployPipeline);
+        inOrder.verify(deployPipeline).setup();
+        inOrder.verify(deployPipeline, Mockito.never()).run();
+        inOrder.verify(deployPipeline, Mockito.never()).teardown();
+    }
+
+    @Test
+    public void executePipelineRunFails() {
+        Mockito.doReturn(true).when(deployPipeline).setup();
+        Mockito.doReturn(false).when(deployPipeline).run();
+        Mockito.doReturn(true).when(deployPipeline).teardown();
+
+        boolean result = deployPipeline.executePipeline();
+        assertTrue(!result);
+
+        // Verify that the methods were called in the correct order
+        InOrder inOrder = Mockito.inOrder(deployPipeline);
+        inOrder.verify(deployPipeline).setup();
+        inOrder.verify(deployPipeline).run();
+        inOrder.verify(deployPipeline, Mockito.never()).teardown();
+    }
+
+    @Test
+    public void executePipelineTeardownFails() {
+        Mockito.doReturn(true).when(deployPipeline).setup();
+        Mockito.doReturn(true).when(deployPipeline).run();
+        Mockito.doReturn(false).when(deployPipeline).teardown();
+
+        boolean result = deployPipeline.executePipeline();
+        assertTrue(!result);
 
         // Verify that the methods were called in the correct order
         InOrder inOrder = Mockito.inOrder(deployPipeline);
