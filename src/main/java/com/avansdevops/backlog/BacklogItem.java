@@ -3,6 +3,7 @@ package com.avansdevops.backlog;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avansdevops.notifications.Observer;
 import com.avansdevops.users.User;
 
 public class BacklogItem {
