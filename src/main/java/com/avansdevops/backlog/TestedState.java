@@ -1,8 +1,6 @@
 package com.avansdevops.backlog;
 
-
 public class TestedState implements IBacklogItemState {
-
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
         printAndSetState(backlogItem, null, ItemStatus.TESTED, ItemStatus.TODO);
@@ -21,8 +19,6 @@ public class TestedState implements IBacklogItemState {
     @Override
     public void moveToTesting(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new TestingState(), ItemStatus.TESTED, ItemStatus.TESTING);
-        // notify observers
-        backlogItem.notifyObservers("Backlog item " + backlogItem.getTitle() + " is moved to TESTING");
     }
 
     @Override
@@ -33,8 +29,5 @@ public class TestedState implements IBacklogItemState {
     @Override
     public void moveToDone(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new DoneState(), ItemStatus.TESTED, ItemStatus.DONE);
-        // notify observers
-        backlogItem.notifyObservers("Backlog item " + backlogItem.getTitle() + " is moved to DONE");
     }
-
 }

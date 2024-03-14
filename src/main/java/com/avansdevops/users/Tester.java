@@ -6,12 +6,12 @@ import java.util.List;
 import com.avansdevops.notifications.NotificationAdapter;
 import com.avansdevops.notifications.Observer;
 
-public class ScrumMaster implements User, Observer {
+public class Tester implements User, Observer {
     private String name;
     private UserRole role;
     private List<NotificationAdapter> adapters = new ArrayList<>();
 
-    public ScrumMaster(String name) {
+    public Tester(String name) {
         this.name = name;
         this.role = UserRole.SCRUM_MASTER;
     }
@@ -34,7 +34,7 @@ public class ScrumMaster implements User, Observer {
     @Override
     public void update(String message) {
         for (NotificationAdapter adapter : this.adapters) {
-            adapter.sendNotification("Scrum master " + this.name + " received a notification: " + message);
+            adapter.sendNotification("Tester " + this.name + " received a notification: " + message);
         }
     }
 }

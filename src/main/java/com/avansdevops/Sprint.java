@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.avansdevops.backlog.Backlog;
 import com.avansdevops.backlog.BacklogItem;
 import com.avansdevops.backlog.DoneState;
+import com.avansdevops.notifications.Observer;
 import com.avansdevops.report.Report;
 import com.avansdevops.report.SprintResultReport;
 import com.avansdevops.users.ProductOwner;
 import com.avansdevops.users.ScrumMaster;
 import com.avansdevops.users.User;
+import com.avansdevops.users.UserRole;
 
 public class Sprint {
     private String name;
@@ -211,5 +214,18 @@ public class Sprint {
         }
 
         this.participants.remove(user);
+    }
+
+    public void setDefaultObservers() {
+        for (BacklogItem item : getBacklogItems()) {
+            List<Observer> observers = getParticipants().stream()
+                    .filter(participant -> participant.getRole().equals(UserRole.TESTER) ||
+                            participant.getRole().equals(UserRole.SCRUM_MASTER) ||
+                            (participant.getRole().equals(UserRole.DEVELOPER)
+                                    && participant.equals(item.getAssignee())))
+                    .map(participant -> (Observer) participant)
+                    .collect(Collectors.toList());
+            item.setObservers(observers);
+        }
     }
 }

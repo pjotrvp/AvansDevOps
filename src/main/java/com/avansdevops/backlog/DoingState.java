@@ -1,12 +1,9 @@
 package com.avansdevops.backlog;
 
-
 public class DoingState implements IBacklogItemState {
-
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new TodoState(), ItemStatus.DOING, ItemStatus.TODO);
-        // notify scum master
     }
 
     @Override
@@ -17,7 +14,6 @@ public class DoingState implements IBacklogItemState {
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new ReadyForTestingState(), ItemStatus.DOING, ItemStatus.READY_FOR_TESTING);
-        backlogItem.notifyObservers("Backlog item is ready for testing");
     }
 
     @Override
@@ -34,6 +30,4 @@ public class DoingState implements IBacklogItemState {
     public void moveToDone(BacklogItem backlogItem) {
         printAndSetState(backlogItem, null, ItemStatus.DOING, ItemStatus.DONE);
     }
-
-    
 }

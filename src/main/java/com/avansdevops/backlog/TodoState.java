@@ -1,8 +1,6 @@
 package com.avansdevops.backlog;
 
-
 public class TodoState implements IBacklogItemState {
-
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
         printAndSetState(backlogItem, null, ItemStatus.TODO, ItemStatus.TODO);
@@ -11,8 +9,6 @@ public class TodoState implements IBacklogItemState {
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new DoingState(), ItemStatus.TODO, ItemStatus.DOING);
-        // notify observers
-        backlogItem.notifyObservers("Backlog item " + backlogItem.getTitle() + " is moved to DOING");
     }
 
     @Override
@@ -34,5 +30,4 @@ public class TodoState implements IBacklogItemState {
     public void moveToDone(BacklogItem backlogItem) {
         printAndSetState(backlogItem, null, ItemStatus.TODO, ItemStatus.DONE);
     }
-
 }
