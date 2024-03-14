@@ -268,13 +268,19 @@ public class SprintTest {
     }
 
     @Test
-    public void testStartDateAfterStart() throws IllegalStateException {
+    public void testStartDateAfterStart() {
         releaseSprint.startSprint();
+        boolean exceptionThrown = false;
+
         try {
             releaseSprint.setStartDate(new Date());
-            fail("Should throw IllegalStateException");
         } catch (IllegalStateException e) {
+            exceptionThrown = true;
             assertEquals("Sprint has already started or finished", e.getMessage());
+        }
+
+        if (!exceptionThrown) {
+            fail("Should throw IllegalStateException");
         }
     }
 
@@ -282,11 +288,17 @@ public class SprintTest {
     public void testStartDateAfterFinish() throws IllegalStateException {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
+        boolean exceptionThrown = false;
+
         try {
             releaseSprint.setStartDate(new Date());
-            fail("Should throw IllegalStateException");
         } catch (IllegalStateException e) {
+            exceptionThrown = true;
             assertEquals("Sprint has already started or finished", e.getMessage());
+        }
+
+        if (!exceptionThrown) {
+            fail("Should throw IllegalStateException");
         }
     }
 
@@ -300,11 +312,17 @@ public class SprintTest {
     @Test
     public void testEndDateAfterStart() throws IllegalStateException {
         releaseSprint.startSprint();
+        boolean exceptionThrown = false;
+
         try {
             releaseSprint.setEndDate(new Date());
-            fail("Should throw IllegalStateException");
         } catch (IllegalStateException e) {
+            exceptionThrown = true;
             assertEquals("Sprint has already started or finished", e.getMessage());
+        }
+
+        if (!exceptionThrown) {
+            fail("Should throw IllegalStateException");
         }
     }
 
@@ -312,11 +330,17 @@ public class SprintTest {
     public void testEndDateAfterFinish() throws IllegalStateException {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
+        boolean exceptionThrown = false;
+
         try {
             releaseSprint.setEndDate(new Date());
-            fail("Should throw IllegalStateException");
         } catch (IllegalStateException e) {
+            exceptionThrown = true;
             assertEquals("Sprint has already started or finished", e.getMessage());
+        }
+
+        if (!exceptionThrown) {
+            fail("Should throw IllegalStateException");
         }
     }
 
