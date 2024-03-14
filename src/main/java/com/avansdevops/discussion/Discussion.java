@@ -5,18 +5,17 @@ import java.util.List;
 
 import com.avansdevops.backlog.BacklogItem;
 import com.avansdevops.backlog.DoneState;
+import com.avansdevops.notifications.BaseSubject;
 import com.avansdevops.notifications.Observer;
-import com.avansdevops.notifications.Subject;
 import com.avansdevops.users.User;
 import com.avansdevops.users.UserRole;
 
-public class Discussion implements Subject {
+public class Discussion extends BaseSubject {
     private String title;
     private String content;
     private List<String> responses = new ArrayList<>();
     private BacklogItem backlogItem;
     private User creator;
-    private List<Observer> observers = new ArrayList<>();
 
     public Discussion(String title, String content, User creator) {
         this.title = title;
@@ -81,30 +80,9 @@ public class Discussion implements Subject {
     }
 
     @Override
-    public void addObserver(Observer observer) {
-        if (observers.contains(observer)) {
-            throw new IllegalArgumentException("Observer already exists");
-        }
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) throws IllegalArgumentException {
-        if (!observers.contains(observer)) {
-            throw new IllegalArgumentException("Observer not found");
-        }
-        observers.remove(observer);
-    }
-
-    @Override
     public void notifyObservers(UserRole role, String message) {
         for (Observer observer : observers) {
             observer.update(message);
         }
-    }
-
-    @Override
-    public List<Observer> getObservers() {
-        return this.observers;
     }
 }

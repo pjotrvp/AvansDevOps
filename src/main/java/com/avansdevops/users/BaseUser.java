@@ -11,7 +11,7 @@ public abstract class BaseUser implements User, Observer {
     protected UserRole role;
     protected List<NotificationAdapter> adapters = new ArrayList<>();
 
-    public BaseUser(String name, UserRole role) {
+    protected BaseUser(String name, UserRole role) {
         this.name = name;
         this.role = role;
     }

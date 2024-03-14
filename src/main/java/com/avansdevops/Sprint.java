@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import com.avansdevops.backlog.Backlog;
 import com.avansdevops.backlog.BacklogItem;
 import com.avansdevops.backlog.DoneState;
+import com.avansdevops.notifications.BaseSubject;
 import com.avansdevops.notifications.Observer;
-import com.avansdevops.notifications.Subject;
 import com.avansdevops.report.Report;
 import com.avansdevops.report.SprintResultReport;
 import com.avansdevops.users.ProductOwner;
@@ -18,7 +18,7 @@ import com.avansdevops.users.ScrumMaster;
 import com.avansdevops.users.User;
 import com.avansdevops.users.UserRole;
 
-public class Sprint implements Subject {
+public class Sprint extends BaseSubject {
     private String name;
     private Date startDate;
     private Date endDate;
@@ -29,7 +29,6 @@ public class Sprint implements Subject {
     private boolean hasFinished = false;
     private List<User> participants = new ArrayList<>();
     private Report report = null;
-    private List<Observer> observers = new ArrayList<>();
 
     private static final String SPRINT_ERROR = "Sprint has already started or finished";
     private static final Logger LOGGER = Logger.getLogger(Sprint.class.getName());
@@ -268,32 +267,11 @@ public class Sprint implements Subject {
     }
 
     @Override
-    public void addObserver(Observer observer) {
-        if (observers.contains(observer)) {
-            throw new IllegalArgumentException("Observer already exists");
-        }
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) throws IllegalArgumentException {
-        if (!observers.contains(observer)) {
-            throw new IllegalArgumentException("Observer not found");
-        }
-        observers.remove(observer);
-    }
-
-    @Override
     public void notifyObservers(UserRole role, String message) {
         for (Observer observer : observers) {
             if (((User) observer).getRole().equals(role)) {
                 observer.update(message);
             }
         }
-    }
-
-    @Override
-    public List<Observer> getObservers() {
-        return this.observers;
     }
 }

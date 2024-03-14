@@ -3,12 +3,12 @@ package com.avansdevops.backlog;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avansdevops.notifications.BaseSubject;
 import com.avansdevops.notifications.Observer;
-import com.avansdevops.notifications.Subject;
 import com.avansdevops.users.User;
 import com.avansdevops.users.UserRole;
 
-public class BacklogItem implements Subject {
+public class BacklogItem extends BaseSubject {
     private String title;
     private String description;
     private int storyPoints;
@@ -17,7 +17,6 @@ public class BacklogItem implements Subject {
     private User assignee;
     private boolean isSubTask = false;
     private String code;
-    private List<Observer> observers = new ArrayList<>();
 
     private static String backlogItemText = "Backlog item ";
 
@@ -137,32 +136,11 @@ public class BacklogItem implements Subject {
     }
 
     @Override
-    public void addObserver(Observer observer) {
-        if (observers.contains(observer)) {
-            throw new IllegalArgumentException("Observer already exists");
-        }
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) throws IllegalArgumentException {
-        if (!observers.contains(observer)) {
-            throw new IllegalArgumentException("Observer not found");
-        }
-        observers.remove(observer);
-    }
-
-    @Override
     public void notifyObservers(UserRole role, String message) {
         for (Observer observer : observers) {
             if (((User) observer).getRole().equals(role)) {
                 observer.update(message);
             }
         }
-    }
-
-    @Override
-    public List<Observer> getObservers() {
-        return this.observers;
     }
 }
