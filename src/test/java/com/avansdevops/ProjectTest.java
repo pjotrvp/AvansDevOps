@@ -79,6 +79,8 @@ public class ProjectTest {
         project.addBacklogItem(item);
         project.addBacklogItem(item);
         assertEquals(1, project.getBacklogItems().size());
+        long count = project.getBacklogItems().stream().filter(p -> p.equals(item)).count();
+        assertEquals(1, count);
     }
 
     @Test
@@ -106,6 +108,8 @@ public class ProjectTest {
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("User is already a member of the project", e.getMessage());
+            long count = project.getMembers().stream().filter(p -> p.equals(developer)).count();
+            assertEquals(1, count);
         }
     }
 
@@ -117,6 +121,8 @@ public class ProjectTest {
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("Project already has a Product Owner", e.getMessage());
+            assertTrue(project.getMembers().contains(productOwner1));
+            assertFalse(project.getMembers().contains(productOwner2));
         }
     }
 

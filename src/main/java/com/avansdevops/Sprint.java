@@ -27,7 +27,7 @@ public class Sprint {
     private Report report = null;
 
     private static final String SPRINT_ERROR = "Sprint has already started or finished";
-    private static final Logger LOGGER = Logger.getLogger(Report.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Sprint.class.getName());
 
     public Sprint(String name, Date startDate, Date endDate, SprintGoal goal, Backlog backlog, Project project) {
         this.name = name;
@@ -75,7 +75,7 @@ public class Sprint {
         }
     }
 
-    private void commitAndPushDoneItems() {
+    void commitAndPushDoneItems() {
         for (BacklogItem item : getBacklogItems()) {
             if (item.getState() instanceof DoneState) {
                 try {
@@ -88,14 +88,14 @@ public class Sprint {
         }
     }
 
-    private void executeDevelopmentPipelines() throws Exception {
+    void executeDevelopmentPipelines() throws RuntimeException {
         if (this.project.executePipelines()) {
             this.hasFinished = true;
             this.hasStarted = false;
             // notify scrum master and product owner
         } else {
             // notify scrum master
-            throw new Exception("Pipeline failed");
+            throw new RuntimeException("Pipeline failed");
         }
     }
 
