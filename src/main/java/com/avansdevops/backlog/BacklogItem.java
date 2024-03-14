@@ -3,7 +3,6 @@ package com.avansdevops.backlog;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.avansdevops.Sprint;
 import com.avansdevops.notifications.Observer;
 import com.avansdevops.notifications.Subject;
 import com.avansdevops.users.User;
@@ -19,7 +18,6 @@ public class BacklogItem implements Subject {
     private boolean isSubTask = false;
     private String code;
     private List<Observer> observers = new ArrayList<>();
-    private Sprint sprint;
 
     public BacklogItem(String title, String description, int storyPoints) {
         this.title = title;
@@ -78,14 +76,6 @@ public class BacklogItem implements Subject {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public Sprint getSprint() {
-        return sprint;
-    }
-
-    public void setSprint(Sprint sprint) {
-        this.sprint = sprint;
     }
 
     public IBacklogItemState getState() {

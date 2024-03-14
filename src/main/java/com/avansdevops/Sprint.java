@@ -10,6 +10,7 @@ import com.avansdevops.backlog.Backlog;
 import com.avansdevops.backlog.BacklogItem;
 import com.avansdevops.backlog.DoneState;
 import com.avansdevops.notifications.Observer;
+import com.avansdevops.notifications.Subject;
 import com.avansdevops.report.Report;
 import com.avansdevops.report.SprintResultReport;
 import com.avansdevops.users.ProductOwner;
@@ -17,7 +18,7 @@ import com.avansdevops.users.ScrumMaster;
 import com.avansdevops.users.User;
 import com.avansdevops.users.UserRole;
 
-public class Sprint {
+public class Sprint implements Subject {
     private String name;
     private Date startDate;
     private Date endDate;
@@ -28,6 +29,7 @@ public class Sprint {
     private boolean hasFinished = false;
     private List<User> participants = new ArrayList<>();
     private Report report = null;
+    private List<Observer> observers = new ArrayList<>();
 
     private static final String SPRINT_ERROR = "Sprint has already started or finished";
     private static final Logger LOGGER = Logger.getLogger(Sprint.class.getName());
@@ -74,7 +76,9 @@ public class Sprint {
         } else {
             this.hasFinished = true;
             this.hasStarted = false;
-            // notify scrum master and product owner
+            String message = "Sprint " + this.name + " has failed";
+            notifyProductOwner(message);
+            notifyScrumMaster(message);
         }
     }
 
@@ -95,9 +99,11 @@ public class Sprint {
         if (this.project.executePipelines()) {
             this.hasFinished = true;
             this.hasStarted = false;
-            // notify scrum master and product owner
+            String message = "Sprint " + this.name + " has finished successfully";
+            notifyProductOwner(message);
+            notifyScrumMaster(message);
         } else {
-            // notify scrum master
+            notifyScrumMaster("Pipeline execution failed");
             throw new IllegalStateException("Pipeline execution failed");
         }
     }
@@ -216,7 +222,7 @@ public class Sprint {
         this.participants.remove(user);
     }
 
-    public void setDefaultObservers() {
+    public void setDefaultObserversForBacklogItems() {
         for (BacklogItem item : getBacklogItems()) {
             List<Observer> observers = getParticipants().stream()
                     .filter(participant -> participant.getRole().equals(UserRole.TESTER) ||
@@ -226,6 +232,57 @@ public class Sprint {
                     .map(participant -> (Observer) participant)
                     .collect(Collectors.toList());
             item.setObservers(observers);
+        }
+    }
+
+    public void setDefaultObserversForSprint() {
+        // Get the scrum master and the product owner from the related project
+        User scrumMaster = this.project.getMembers().stream()
+                .filter(member -> member.getRole().equals(UserRole.SCRUM_MASTER))
+                .findFirst()
+                .orElse(null);
+
+        User productOwner = this.project.getMembers().stream()
+                .filter(member -> member.getRole().equals(UserRole.PRODUCT_OWNER))
+                .findFirst()
+                .orElse(null);
+
+        // Add the scrum master and the product owner to the observer list
+        if (scrumMaster != null) {
+            this.observers.add((Observer) scrumMaster);
+        }
+        if (productOwner != null) {
+            this.observers.add((Observer) productOwner);
+        }
+    }
+
+    public void notifyScrumMaster(String message) {
+        notifyObservers(UserRole.SCRUM_MASTER, message);
+    }
+
+    public void notifyProductOwner(String message) {
+        notifyObservers(UserRole.PRODUCT_OWNER, message);
+    }
+
+    @Override
+    public void setObservers(List<Observer> observers) {
+        this.observers = observers;
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        if (observers.contains(observer)) {
+            observers.remove(observer);
+        }
+        throw new IllegalArgumentException("Observer not found");
+    }
+
+    @Override
+    public void notifyObservers(UserRole role, String message) {
+        for (Observer observer : observers) {
+            if (((User) observer).getRole().equals(role)) {
+                observer.update(message);
+            }
         }
     }
 }

@@ -5,14 +5,18 @@ import java.util.List;
 
 import com.avansdevops.backlog.BacklogItem;
 import com.avansdevops.backlog.DoneState;
+import com.avansdevops.notifications.Observer;
+import com.avansdevops.notifications.Subject;
 import com.avansdevops.users.User;
+import com.avansdevops.users.UserRole;
 
-public class Discussion {
+public class Discussion implements Subject {
     private String title;
     private String content;
     private List<String> responses = new ArrayList<>();
     private BacklogItem backlogItem;
     private User creator;
+    private List<Observer> observers = new ArrayList<>();
 
     public Discussion(String title, String content, User creator) {
         this.title = title;
@@ -54,6 +58,7 @@ public class Discussion {
 
     public void addResponse(String response) {
         responses.add(response);
+        notifyObservers(null, "New response: " + response + " added to discussion: " + title);
     }
 
     public void moveBacklogItem() throws IllegalArgumentException, IllegalStateException {
@@ -65,5 +70,30 @@ public class Discussion {
             throw new IllegalStateException("Backlog item must be in the Done state to move it to the Todo state");
         }
         this.backlogItem.moveToTodo();
+        this.backlogItem.notifyAssignee();
+    }
+
+    public void setDefaultObserversForDiscussion() {
+        this.observers.add((Observer) this.creator);
+    }
+
+    @Override
+    public void setObservers(List<Observer> observers) {
+        this.observers = observers;
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        if (observers.contains(observer)) {
+            observers.remove(observer);
+        }
+        throw new IllegalArgumentException("Observer not found");
+    }
+
+    @Override
+    public void notifyObservers(UserRole role, String message) {
+        for (Observer observer : observers) {
+            observer.update(message);
+        }
     }
 }
