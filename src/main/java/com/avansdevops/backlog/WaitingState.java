@@ -1,12 +1,6 @@
 package com.avansdevops.backlog;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.avansdevops.notifications.Observer;
-
 public class WaitingState implements IBacklogItemState {
-    private List<Observer> observers = new ArrayList<>();
 
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
@@ -38,22 +32,4 @@ public class WaitingState implements IBacklogItemState {
         printAndSetState(backlogItem, null, ItemStatus.WAITING, ItemStatus.DONE);
     }
 
-    @Override
-    public void addObserver(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        this.observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers(String message) {
-        for (Observer observer : observers) {
-            if (observer != null) {
-                observer.update(message);
-            }
-        }
-    }
 }

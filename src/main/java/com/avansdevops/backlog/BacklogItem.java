@@ -3,6 +3,7 @@ package com.avansdevops.backlog;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avansdevops.notifications.Observer;
 import com.avansdevops.users.User;
 
 public class BacklogItem {
@@ -14,12 +15,14 @@ public class BacklogItem {
     private User assignee;
     private boolean isSubTask = false;
     private String code;
+    private List<Observer> observers;
 
     public BacklogItem(String title, String description, int storyPoints) {
         this.title = title;
         this.description = description;
         this.storyPoints = storyPoints;
         this.state = new WaitingState();
+        this.observers = new ArrayList<>();
     }
 
     public List<BacklogItem> getSubTasks() {
@@ -112,5 +115,21 @@ public class BacklogItem {
             }
         }
         state.moveToDone(this);
+    }
+
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        this.observers.remove(observer);
+    }
+
+    public void notifyObservers(String message) {
+        for (Observer observer : observers) {
+            if (observer != null) {
+                observer.update(message);
+            }
+        }
     }
 }
