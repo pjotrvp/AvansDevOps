@@ -19,7 +19,7 @@ public class BacklogItem implements Subject {
     private String code;
     private List<Observer> observers = new ArrayList<>();
 
-    private static String BACKLOG_ITEM_TEXT = "Backlog item ";
+    private static String backlogItemText = "Backlog item ";
 
     public BacklogItem(String title, String description, int storyPoints) {
         this.title = title;
@@ -122,17 +122,17 @@ public class BacklogItem implements Subject {
 
     public void notifyTesters() {
         if (getState() instanceof ReadyForTestingState) {
-            notifyObservers(UserRole.TESTER, BACKLOG_ITEM_TEXT + getTitle() + " is ready for testing");
+            notifyObservers(UserRole.TESTER, backlogItemText + getTitle() + " is ready for testing");
         }
     }
 
     public void notifyScrumMaster() {
-        notifyObservers(UserRole.SCRUM_MASTER, BACKLOG_ITEM_TEXT + getTitle() + " has been moved to " + getState());
+        notifyObservers(UserRole.SCRUM_MASTER, backlogItemText + getTitle() + " has been moved to " + getState());
     }
 
     public void notifyAssignee() {
         if (getState() instanceof TodoState && assignee != null) {
-            ((Observer) assignee).update(BACKLOG_ITEM_TEXT + getTitle() + " has been moved back to " + getState());
+            ((Observer) assignee).update(backlogItemText + getTitle() + " has been moved back to " + getState());
         }
     }
 
