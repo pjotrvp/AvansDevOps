@@ -13,7 +13,8 @@ public class TestedState implements IBacklogItemState {
 
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
-        printAndSetState(backlogItem, null, ItemStatus.TESTED, ItemStatus.READY_FOR_TESTING);
+        printAndSetState(backlogItem, new ReadyForTestingState(), ItemStatus.TESTED, ItemStatus.READY_FOR_TESTING);
+        backlogItem.notifyTesters();
     }
 
     @Override

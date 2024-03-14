@@ -9,6 +9,7 @@ public class TodoState implements IBacklogItemState {
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new DoingState(), ItemStatus.TODO, ItemStatus.DOING);
+        backlogItem.notifyScrumMaster();
     }
 
     @Override

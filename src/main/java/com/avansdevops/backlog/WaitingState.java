@@ -5,6 +5,7 @@ public class WaitingState implements IBacklogItemState {
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new TodoState(), ItemStatus.WAITING, ItemStatus.TODO);
+        backlogItem.notifyAssignee();
     }
 
     @Override

@@ -96,19 +96,16 @@ public class BacklogItem implements Subject {
         this.state = state;
     }
 
-    public void moveToTodo() {
+    public synchronized void moveToTodo() {
         state.moveToTodo(this);
-        notifyAssignee();
     }
 
     public void moveToDoing() {
         state.moveToDoing(this);
-        notifyScrumMaster();
     }
 
     public void moveToReadyForTesting() {
         state.moveToReadyForTesting(this);
-        notifyTesters();
     }
 
     public void moveToTesting() {
@@ -131,11 +128,9 @@ public class BacklogItem implements Subject {
         state.moveToDone(this);
     }
 
-    public void notifyTesters() throws IllegalStateException {
+    public void notifyTesters() {
         if (getState() instanceof ReadyForTestingState) {
             notifyObservers(UserRole.TESTER, "Backlog item " + getTitle() + " is ready for testing");
-        } else {
-            throw new IllegalStateException("Backlog item is not in ready for testing");
         }
     }
 
@@ -143,11 +138,10 @@ public class BacklogItem implements Subject {
         notifyObservers(UserRole.SCRUM_MASTER, "Backlog item " + getTitle() + " has been moved to " + getState());
     }
 
-    public void notifyAssignee() throws IllegalStateException {
+    public void notifyAssignee() {
         if (getState() instanceof TodoState && assignee != null) {
             ((Observer) assignee).update("Backlog item " + getTitle() + " has been moved back to " + getState());
         }
-        throw new IllegalStateException("Backlog item is not in Todo state");
     }
 
     @Override

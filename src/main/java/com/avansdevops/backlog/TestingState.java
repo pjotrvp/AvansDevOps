@@ -4,6 +4,7 @@ public class TestingState implements IBacklogItemState {
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new TodoState(), ItemStatus.TESTING, ItemStatus.TODO);
+        backlogItem.notifyAssignee();
     }
 
     @Override
@@ -14,6 +15,7 @@ public class TestingState implements IBacklogItemState {
     @Override
     public void moveToReadyForTesting(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new ReadyForTestingState(), ItemStatus.TESTING, ItemStatus.READY_FOR_TESTING);
+        backlogItem.notifyTesters();
     }
 
     @Override

@@ -9,6 +9,7 @@ public class ReadyForTestingState implements IBacklogItemState {
     @Override
     public void moveToDoing(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new DoingState(), ItemStatus.READY_FOR_TESTING, ItemStatus.DOING);
+        backlogItem.notifyScrumMaster();
     }
 
     @Override

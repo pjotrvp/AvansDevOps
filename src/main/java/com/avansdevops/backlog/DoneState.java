@@ -4,6 +4,7 @@ public class DoneState implements IBacklogItemState {
     @Override
     public void moveToTodo(BacklogItem backlogItem) {
         printAndSetState(backlogItem, new TodoState(), ItemStatus.DONE, ItemStatus.TODO);
+        backlogItem.notifyAssignee();
     }
 
     @Override

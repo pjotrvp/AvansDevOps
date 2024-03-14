@@ -28,7 +28,7 @@ public class TestedStateTest {
     @Test
     public void testMoveToReadyForTesting() {
         backlogItem.moveToReadyForTesting();
-        assertTrue(backlogItem.getState() instanceof TestedState);
+        assertTrue(backlogItem.getState() instanceof ReadyForTestingState);
     }
 
     @Test
