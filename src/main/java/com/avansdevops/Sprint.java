@@ -224,14 +224,14 @@ public class Sprint implements Subject {
 
     public void setDefaultObserversForBacklogItems() {
         for (BacklogItem item : getBacklogItems()) {
-            List<Observer> observers = getParticipants().stream()
+            List<Observer> itemObservers = getParticipants().stream()
                     .filter(participant -> participant.getRole().equals(UserRole.TESTER) ||
                             participant.getRole().equals(UserRole.SCRUM_MASTER) ||
                             (participant.getRole().equals(UserRole.DEVELOPER)
                                     && participant.equals(item.getAssignee())))
-                    .map(participant -> (Observer) participant)
+                    .map(Observer.class::cast)
                     .collect(Collectors.toList());
-            for (Observer observer : observers) {
+            for (Observer observer : itemObservers) {
                 item.addObserver(observer);
             }
         }
