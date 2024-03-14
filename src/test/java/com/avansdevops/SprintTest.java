@@ -72,7 +72,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testStartSprintAfterFinish() throws Exception {
+    public void testStartSprintAfterFinish() throws IllegalStateException {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
         try {
@@ -103,7 +103,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testFinishSprintBeforeStart() throws Exception {
+    public void testFinishSprintBeforeStart() throws IllegalStateException {
         try {
             releaseSprint.finishSprint(true);
             fail("Should throw IllegalStateException");
@@ -114,7 +114,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testFinishSprintAfterFinish() throws Exception {
+    public void testFinishSprintAfterFinish() throws IllegalStateException {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
         try {
@@ -127,7 +127,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testFinishSprint_PartialProductGoal_NoReport() throws Exception {
+    public void testFinishSprint_PartialProductGoal_NoReport() throws IllegalStateException {
         partialProductSprint.startSprint();
         try {
             partialProductSprint.finishSprint(true);
@@ -138,7 +138,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testFinishSprint_PartialProductGoal_WithReport() throws Exception {
+    public void testFinishSprint_PartialProductGoal_WithReport() {
         partialProductSprint.startSprint();
         partialProductSprint.generateSprintReport("Test", "Company Name", "Company Logo", 1);
         partialProductSprint.finishSprint(true);
@@ -148,7 +148,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testFinishSprintSuccessful() throws Exception {
+    public void testFinishSprintSuccessful() {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
         assertTrue(releaseSprint.hasFinished());
@@ -156,7 +156,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testFinishSprintUnsuccessful() throws Exception {
+    public void testFinishSprintUnsuccessful() {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(false);
         assertTrue(releaseSprint.hasFinished());
@@ -164,7 +164,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testCommitAndPushDoneItems() throws Exception {
+    public void testCommitAndPushDoneItems() {
         Scm mockScm = mock(Scm.class);
         project.setScm(mockScm);
         releaseSprint.addBacklogItem(item);
@@ -178,7 +178,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testCommitAndPushDoneItems_NoDoneItems() throws Exception {
+    public void testCommitAndPushDoneItems_NoDoneItems() {
         Scm mockScm = mock(Scm.class);
         project.setScm(mockScm);
         releaseSprint.addBacklogItem(item);
@@ -191,7 +191,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testCommitAndPushDoneItemsCommitPushFail() throws Exception {
+    public void testCommitAndPushDoneItemsCommitPushFail() throws IllegalArgumentException {
         Scm mockScm = mock(Scm.class);
         doThrow(new IllegalArgumentException("Commit/Push failed")).when(mockScm).commit(anyString(), anyString());
         doThrow(new IllegalArgumentException("Commit/Push failed")).when(mockScm).push();
@@ -207,7 +207,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testExecuteDevelopmentPipelines_Successful() throws Exception {
+    public void testExecuteDevelopmentPipelines_Successful() {
         Project mockProject = mock(Project.class);
         when(mockProject.executePipelines()).thenReturn(true);
 
@@ -218,16 +218,16 @@ public class SprintTest {
     }
 
     @Test
-    public void testExecuteDevelopmentPipelines_Unsuccessful() throws IllegalArgumentException {
+    public void testExecuteDevelopmentPipelines_Unsuccessful() throws IllegalStateException {
         Project mockProject = mock(Project.class);
         Sprint mockSprint = new Sprint("Test", new Date(), new Date(), SprintGoal.RELEASE, new Backlog("Test"),
                 mockProject);
 
         try {
             mockSprint.executeDevelopmentPipelines();
-            fail("Should throw RuntimeException");
-        } catch (RuntimeException e) {
-            assertEquals("Pipeline failed", e.getMessage());
+            fail("Should throw IllegalStateException");
+        } catch (IllegalStateException e) {
+            assertEquals("Pipeline execution failed", e.getMessage());
         }
     }
 
@@ -249,7 +249,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testNameAfterFinish() throws Exception {
+    public void testNameAfterFinish() throws IllegalStateException {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
         try {
@@ -268,7 +268,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testStartDateAfterStart() {
+    public void testStartDateAfterStart() throws IllegalStateException {
         releaseSprint.startSprint();
         try {
             releaseSprint.setStartDate(new Date());
@@ -279,7 +279,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testStartDateAfterFinish() throws Exception {
+    public void testStartDateAfterFinish() throws IllegalStateException {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
         try {
@@ -298,7 +298,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testEndDateAfterStart() {
+    public void testEndDateAfterStart() throws IllegalStateException {
         releaseSprint.startSprint();
         try {
             releaseSprint.setEndDate(new Date());
@@ -309,7 +309,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testEndDateAfterFinish() throws Exception {
+    public void testEndDateAfterFinish() throws IllegalStateException {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
         try {
@@ -327,7 +327,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testGetBacklogItems() throws Exception {
+    public void testGetBacklogItems() {
         releaseSprint.addBacklogItem(item);
         assertEquals(1, releaseSprint.getBacklogItems().size());
         assertTrue(releaseSprint.getBacklogItems().contains(item));
@@ -339,7 +339,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddBacklogItem() throws Exception {
+    public void testAddBacklogItem() {
         releaseSprint.addBacklogItem(item);
         assertEquals(1, releaseSprint.getBacklogItems().size());
         assertTrue(releaseSprint.getBacklogItems().contains(item));
@@ -347,7 +347,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddBacklogItemNotInProject() throws Exception {
+    public void testAddBacklogItemNotInProject() throws IllegalArgumentException {
         BacklogItem item2 = new BacklogItem("Title", "Description", 4);
         try {
             releaseSprint.addBacklogItem(item2);
@@ -358,7 +358,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddBacklogItemDuplicateItem() throws Exception {
+    public void testAddBacklogItemDuplicateItem() throws IllegalArgumentException {
         releaseSprint.addBacklogItem(item);
         try {
             releaseSprint.addBacklogItem(item);
@@ -369,7 +369,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddBacklogItemAfterStart() throws Exception {
+    public void testAddBacklogItemAfterStart() throws IllegalStateException {
         releaseSprint.startSprint();
         try {
             releaseSprint.addBacklogItem(item);
@@ -380,7 +380,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddBacklogItemAfterFinish() throws Exception {
+    public void testAddBacklogItemAfterFinish() throws IllegalStateException {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
         try {
@@ -392,7 +392,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddBacklogItemAlreadyDone() throws Exception {
+    public void testAddBacklogItemAlreadyDone() throws IllegalArgumentException {
         item.setState(new DoneState());
         try {
             releaseSprint.addBacklogItem(item);
@@ -403,7 +403,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddParticipant() throws Exception {
+    public void testAddParticipant() {
         releaseSprint.addParticipant(developer);
         assertTrue(releaseSprint.getParticipants().contains(developer));
         assertEquals(1, releaseSprint.getParticipants().size());
@@ -415,7 +415,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddParticipantAfterFinish() throws Exception {
+    public void testAddParticipantAfterFinish() throws IllegalStateException {
         releaseSprint.startSprint();
         releaseSprint.finishSprint(true);
         try {
@@ -428,7 +428,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddParticipantNotInProject() throws Exception {
+    public void testAddParticipantNotInProject() throws IllegalArgumentException {
         try {
             releaseSprint.addParticipant(scrumMaster2);
             fail("Should throw IllegalArgumentException");
@@ -439,7 +439,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddParticipantAlreadyInSprint() throws Exception {
+    public void testAddParticipantAlreadyInSprint() throws IllegalArgumentException {
         releaseSprint.addParticipant(developer);
         try {
             releaseSprint.addParticipant(developer);
@@ -452,7 +452,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddParticipantUserIsProductOwner() throws Exception {
+    public void testAddParticipantUserIsProductOwner() throws IllegalArgumentException {
         project.addMember(productOwner);
         try {
             releaseSprint.addParticipant(productOwner);
@@ -464,7 +464,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testAddParticipantDoubleScrumMaster() throws Exception {
+    public void testAddParticipantDoubleScrumMaster() throws IllegalArgumentException {
         project.addMember(scrumMaster1);
         project.addMember(scrumMaster2);
         releaseSprint.addParticipant(scrumMaster1);
@@ -479,7 +479,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testRemoveParticipant() throws Exception {
+    public void testRemoveParticipant() {
         releaseSprint.addParticipant(developer);
         releaseSprint.removeParticipant(developer);
         assertFalse(releaseSprint.getParticipants().contains(developer));
@@ -487,7 +487,7 @@ public class SprintTest {
     }
 
     @Test
-    public void testRemoveParticipantNonExisiting() throws Exception {
+    public void testRemoveParticipantNonExisiting() throws IllegalArgumentException {
         try {
             releaseSprint.removeParticipant(scrumMaster2);
             fail("Should throw IllegalArgumentException");

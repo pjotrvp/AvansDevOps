@@ -65,7 +65,7 @@ public class Project {
             throw new IllegalArgumentException("User is already a member of the project");
         }
 
-        if (user instanceof ProductOwner && this.members.stream().anyMatch(p -> p instanceof ProductOwner)) {
+        if (user instanceof ProductOwner && this.members.stream().anyMatch(ProductOwner.class::isInstance)) {
 
             throw new IllegalArgumentException("Project already has a Product Owner");
         }

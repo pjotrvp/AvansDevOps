@@ -57,7 +57,7 @@ public class Sprint {
         }
     }
 
-    public void finishSprint(boolean isSuccessful) throws Exception {
+    public void finishSprint(boolean isSuccessful) throws IllegalStateException {
         if (!this.hasStarted || this.hasFinished) {
             throw new IllegalStateException("Sprint has not started or is already finished");
         }
@@ -88,14 +88,14 @@ public class Sprint {
         }
     }
 
-    void executeDevelopmentPipelines() throws RuntimeException {
+    void executeDevelopmentPipelines() {
         if (this.project.executePipelines()) {
             this.hasFinished = true;
             this.hasStarted = false;
             // notify scrum master and product owner
         } else {
             // notify scrum master
-            throw new RuntimeException("Pipeline failed");
+            throw new IllegalStateException("Pipeline execution failed");
         }
     }
 
@@ -156,7 +156,7 @@ public class Sprint {
         return this.backlog;
     }
 
-    public void addBacklogItem(BacklogItem item) throws Exception {
+    public void addBacklogItem(BacklogItem item) throws IllegalArgumentException, IllegalStateException {
         if (!this.project.getBacklogItems().contains(item)) {
             throw new IllegalArgumentException("Backlog item is not in the project's backlog");
         }
@@ -181,7 +181,7 @@ public class Sprint {
         return this.participants;
     }
 
-    public void addParticipant(User user) throws Exception {
+    public void addParticipant(User user) throws IllegalStateException, IllegalArgumentException {
         if (this.hasFinished) {
             throw new IllegalStateException(SPRINT_ERROR);
         }
@@ -198,7 +198,7 @@ public class Sprint {
             throw new IllegalArgumentException("Sprints don't require a Product Owner");
         }
 
-        if (user instanceof ScrumMaster && this.participants.stream().anyMatch(p -> p instanceof ScrumMaster)) {
+        if (user instanceof ScrumMaster && this.participants.stream().anyMatch(ScrumMaster.class::isInstance)) {
             throw new IllegalArgumentException("Sprint already has a Scrum Master");
         }
 
