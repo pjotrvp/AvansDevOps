@@ -9,6 +9,8 @@ public class UserFactory {
                 return new ScrumMaster(name);
             case DEVELOPER:
                 return new Developer(name);
+            case TESTER:
+                return new Tester(name);
             default:
                 return null;
         }

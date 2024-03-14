@@ -9,22 +9,22 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
-public class EmailNotificationAdapterTest {
+public class SmsNotificationAdapterTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private EmailNotificationAdapter adapter;
+    private SmsNotificationAdapter adapter;
 
     @Before
     public void setUp() {
         System.setOut(new PrintStream(outContent));
-        adapter = new EmailNotificationAdapter();
+        adapter = new SmsNotificationAdapter();
     }
 
     @Test
     public void testSendNotification() {
         String message = "Test message";
         adapter.sendNotification(message);
-        assertEquals("Email notification: " + message + System.lineSeparator(), outContent.toString());
+        assertEquals("SMS notification: " + message + System.lineSeparator(), outContent.toString());
     }
 
     @After

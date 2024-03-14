@@ -135,16 +135,19 @@ public class BacklogItem implements Subject {
     }
 
     @Override
-    public void setObservers(List<Observer> observers) {
-        this.observers = observers;
+    public void addObserver(Observer observer) {
+        if (observers.contains(observer)) {
+            throw new IllegalArgumentException("Observer already exists");
+        }
+        this.observers.add(observer);
     }
 
     @Override
     public void removeObserver(Observer observer) throws IllegalArgumentException {
-        if (observers.contains(observer)) {
-            observers.remove(observer);
+        if (!observers.contains(observer)) {
+            throw new IllegalArgumentException("Observer not found");
         }
-        throw new IllegalArgumentException("Observer not found");
+        observers.remove(observer);
     }
 
     @Override
@@ -154,5 +157,10 @@ public class BacklogItem implements Subject {
                 observer.update(message);
             }
         }
+    }
+
+    @Override
+    public List<Observer> getObservers() {
+        return this.observers;
     }
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import com.avansdevops.users.UserRole;
 
 public interface Subject {
-    void setObservers(List<Observer> observers);
+    List<Observer> getObservers();
+
+    void addObserver(Observer observer);
 
     void removeObserver(Observer observer);
 

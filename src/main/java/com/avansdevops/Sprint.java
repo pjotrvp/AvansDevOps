@@ -231,17 +231,20 @@ public class Sprint implements Subject {
                                     && participant.equals(item.getAssignee())))
                     .map(participant -> (Observer) participant)
                     .collect(Collectors.toList());
-            item.setObservers(observers);
+            for (Observer observer : observers) {
+                item.addObserver(observer);
+            }
         }
     }
 
     public void setDefaultObserversForSprint() {
-        // Get the scrum master and the product owner from the related project
-        User scrumMaster = this.project.getMembers().stream()
-                .filter(member -> member.getRole().equals(UserRole.SCRUM_MASTER))
+        // Get the scrum master from Sprint
+        User scrumMaster = this.participants.stream()
+                .filter(participant -> participant.getRole().equals(UserRole.SCRUM_MASTER))
                 .findFirst()
                 .orElse(null);
 
+        // Get the product owner from Project
         User productOwner = this.project.getMembers().stream()
                 .filter(member -> member.getRole().equals(UserRole.PRODUCT_OWNER))
                 .findFirst()
@@ -249,10 +252,10 @@ public class Sprint implements Subject {
 
         // Add the scrum master and the product owner to the observer list
         if (scrumMaster != null) {
-            this.observers.add((Observer) scrumMaster);
+            addObserver((Observer) scrumMaster);
         }
         if (productOwner != null) {
-            this.observers.add((Observer) productOwner);
+            addObserver((Observer) productOwner);
         }
     }
 
@@ -265,16 +268,19 @@ public class Sprint implements Subject {
     }
 
     @Override
-    public void setObservers(List<Observer> observers) {
-        this.observers = observers;
+    public void addObserver(Observer observer) {
+        if (observers.contains(observer)) {
+            throw new IllegalArgumentException("Observer already exists");
+        }
+        this.observers.add(observer);
     }
 
     @Override
-    public void removeObserver(Observer observer) {
-        if (observers.contains(observer)) {
-            observers.remove(observer);
+    public void removeObserver(Observer observer) throws IllegalArgumentException {
+        if (!observers.contains(observer)) {
+            throw new IllegalArgumentException("Observer not found");
         }
-        throw new IllegalArgumentException("Observer not found");
+        observers.remove(observer);
     }
 
     @Override
@@ -284,5 +290,10 @@ public class Sprint implements Subject {
                 observer.update(message);
             }
         }
+    }
+
+    @Override
+    public List<Observer> getObservers() {
+        return this.observers;
     }
 }

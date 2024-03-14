@@ -5,4 +5,5 @@ public enum UserRole {
     SCRUM_MASTER,
     PRODUCT_OWNER,
     TESTER,
+    UNKNOWN
 }

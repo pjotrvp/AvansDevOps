@@ -37,8 +37,15 @@ public class UserFactoryTest {
     }
 
     @Test
+    public void testCreateTester() {
+        User tester = factory.createUser(UserRole.TESTER, "Test");
+        assertTrue(tester instanceof Tester);
+        assertEquals("Test", tester.getName());
+    }
+
+    @Test
     public void testCreateUnknown() {
-        User unknown = factory.createUser(UserRole.TESTER, "Unknown");
+        User unknown = factory.createUser(UserRole.UNKNOWN, "Unknown");
         assertNull(unknown);
     }
 }

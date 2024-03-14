@@ -75,19 +75,25 @@ public class Discussion implements Subject {
 
     public void setDefaultObserversForDiscussion() {
         this.observers.add((Observer) this.creator);
-    }
-
-    @Override
-    public void setObservers(List<Observer> observers) {
-        this.observers = observers;
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        if (observers.contains(observer)) {
-            observers.remove(observer);
+        if (this.backlogItem.getAssignee() != null) {
+            this.observers.add((Observer) this.backlogItem.getAssignee());
         }
-        throw new IllegalArgumentException("Observer not found");
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        if (observers.contains(observer)) {
+            throw new IllegalArgumentException("Observer already exists");
+        }
+        this.observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) throws IllegalArgumentException {
+        if (!observers.contains(observer)) {
+            throw new IllegalArgumentException("Observer not found");
+        }
+        observers.remove(observer);
     }
 
     @Override
@@ -95,5 +101,10 @@ public class Discussion implements Subject {
         for (Observer observer : observers) {
             observer.update(message);
         }
+    }
+
+    @Override
+    public List<Observer> getObservers() {
+        return this.observers;
     }
 }
