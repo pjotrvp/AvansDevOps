@@ -12,14 +12,20 @@ import org.junit.Test;
 import com.avansdevops.backlog.BacklogItem;
 import com.avansdevops.backlog.DoneState;
 import com.avansdevops.backlog.TodoState;
+import com.avansdevops.users.User;
+import com.avansdevops.users.UserFactory;
+import com.avansdevops.users.UserRole;
 
 public class DiscussionTest {
     private Discussion discussion;
     private BacklogItem backlogItem;
+    private UserFactory factory = new UserFactory();
+    private User developer;
 
     @Before
     public void setUp() {
-        discussion = new Discussion("Discussion Title", "Discussion Content");
+        developer = factory.createUser(UserRole.DEVELOPER, "Developer");
+        discussion = new Discussion("Discussion Title", "Discussion Content", developer);
         backlogItem = new BacklogItem("title", "description", 1);
     }
 
@@ -33,6 +39,11 @@ public class DiscussionTest {
     public void testContent() {
         discussion.setContent("New Discussion Content");
         assertEquals("New Discussion Content", discussion.getContent());
+    }
+
+    @Test
+    public void testCreator() {
+        assertEquals(developer, discussion.getCreator());
     }
 
     @Test

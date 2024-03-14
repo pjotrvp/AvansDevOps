@@ -5,16 +5,19 @@ import java.util.List;
 
 import com.avansdevops.backlog.BacklogItem;
 import com.avansdevops.backlog.DoneState;
+import com.avansdevops.users.User;
 
 public class Discussion {
     private String title;
     private String content;
     private List<String> responses = new ArrayList<>();
     private BacklogItem backlogItem;
+    private User creator;
 
-    public Discussion(String title, String content) {
+    public Discussion(String title, String content, User creator) {
         this.title = title;
         this.content = content;
+        this.creator = creator;
     }
 
     public String getTitle() {
@@ -31,6 +34,10 @@ public class Discussion {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public User getCreator() {
+        return creator;
     }
 
     public BacklogItem getBacklogItem() {
