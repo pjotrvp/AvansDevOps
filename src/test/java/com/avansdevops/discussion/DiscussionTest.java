@@ -2,6 +2,7 @@ package com.avansdevops.discussion;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -30,15 +31,71 @@ public class DiscussionTest {
     }
 
     @Test
+    public void testResolveDiscussion() {
+        discussion.resolveDiscussion();
+        assertTrue(discussion.isResolved());
+    }
+
+    @Test
+    public void testResolveDiscussionAlreadyResolved() throws IllegalStateException {
+        discussion.resolveDiscussion();
+        try {
+            discussion.resolveDiscussion();
+            fail("Expected an IllegalStateException to be thrown");
+        } catch (IllegalStateException e) {
+            assertEquals("Discussion has been resolved", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnresolveDiscussion() {
+        discussion.resolveDiscussion();
+        discussion.unresolveDiscussion();
+        assertFalse(discussion.isResolved());
+    }
+
+    @Test
+    public void testUnresolveDiscussionNotResolved() throws IllegalStateException {
+        try {
+            discussion.unresolveDiscussion();
+            fail("Expected an IllegalStateException to be thrown");
+        } catch (IllegalStateException e) {
+            assertEquals("Discussion is not resolved", e.getMessage());
+        }
+    }
+
+    @Test
     public void testTitle() {
         discussion.setTitle("New Discussion Title");
         assertEquals("New Discussion Title", discussion.getTitle());
     }
 
     @Test
+    public void testSetTitleResolved() {
+        discussion.resolveDiscussion();
+        try {
+            discussion.setTitle("New Discussion Title");
+            fail("Expected an IllegalStateException to be thrown");
+        } catch (IllegalStateException e) {
+            assertEquals("Discussion has been resolved", e.getMessage());
+        }
+    }
+
+    @Test
     public void testContent() {
         discussion.setContent("New Discussion Content");
         assertEquals("New Discussion Content", discussion.getContent());
+    }
+
+    @Test
+    public void testSetContentResolved() {
+        discussion.resolveDiscussion();
+        try {
+            discussion.setContent("New Discussion Content");
+            fail("Expected an IllegalStateException to be thrown");
+        } catch (IllegalStateException e) {
+            assertEquals("Discussion has been resolved", e.getMessage());
+        }
     }
 
     @Test
@@ -53,9 +110,19 @@ public class DiscussionTest {
     }
 
     @Test
+    public void testSetBacklogItemResolved() {
+        discussion.resolveDiscussion();
+        try {
+            discussion.setBacklogItem(backlogItem);
+            fail("Expected an IllegalStateException to be thrown");
+        } catch (IllegalStateException e) {
+            assertEquals("Discussion has been resolved", e.getMessage());
+        }
+    }
+
+    @Test
     public void testMoveBacklogItem() {
         backlogItem.setState(new DoneState());
-
         discussion.setBacklogItem(backlogItem);
         discussion.moveBacklogItem();
         assertTrue(backlogItem.getState() instanceof TodoState);
@@ -84,10 +151,31 @@ public class DiscussionTest {
     }
 
     @Test
+    public void testMoveBacklogItemResolved() {
+        discussion.setBacklogItem(backlogItem);
+        discussion.resolveDiscussion();
+        assertTrue(discussion.isResolved());
+        backlogItem.setState(new DoneState());
+        discussion.moveBacklogItem();
+        assertFalse(discussion.isResolved());
+    }
+
+    @Test
     public void testAddResponse() {
         String response = "This is a response";
         discussion.addResponse(response);
         assertTrue(discussion.getResponses().contains(response));
+    }
+
+    @Test
+    public void testAddResponseResolved() {
+        discussion.resolveDiscussion();
+        try {
+            discussion.addResponse("This is a response");
+            fail("Expected an IllegalStateException to be thrown");
+        } catch (IllegalStateException e) {
+            assertEquals("Discussion has been resolved", e.getMessage());
+        }
     }
 
     @Test
